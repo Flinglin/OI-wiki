@@ -183,8 +183,8 @@ std::string nrvo() {
 }
 
 int main() {
-  std::string str = urvo();  // 直接构造
-  std::string str = nrvo();  // 不一定直接构造，依赖于优化
+  std::string str = urvo();   // 直接构造
+  std::string str2 = nrvo();  // 不一定直接构造，依赖于优化
 }
 ```
 
@@ -194,8 +194,8 @@ int main() {
 
 下面的例子中：
 
--   在 `f1` 中返回 `std::move(x)` 是多余的，并不会带来性能上的提升，反而会干扰编译器进行 NRVO 优化．
--   在 `f2` 中返回 `std::move(x)` 是危险的，函数返回右值引用指向了已被销毁的局部变量 `s`，出现了悬空引用问题．
+-   在 `f1` 中返回 `std::move(s)` 是多余的，并不会带来性能上的提升，反而会干扰编译器进行 NRVO 优化．
+-   在 `f2` 中返回 `std::move(s)` 是危险的，函数返回右值引用指向了已被销毁的局部变量 `s`，出现了悬空引用问题．
 
 ```cpp
 std::string f1() {

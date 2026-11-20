@@ -41,13 +41,13 @@ Python 是一门已在世界上广泛使用的解释型语言．它提供了高�
 
 ### 一些平台提供的 Python 版本
 
-| 系统名/版本           | python 版本               |
-| ---------------- | ----------------------- |
-| Noi Linux 2.0    | 3.8.0, Include requests |
-| Luogu 评测机        | 3.11.5, NumPy 1.25.2    |
-| 基于 Hydro 的 OJ    | 3.8.0+ Include NumPy    |
+| 系统名/版本          | python 版本             |
+| -------------------- | ----------------------- |
+| Noi Linux 2.0        | 3.8.0, Include requests |
+| Luogu 评测机         | 3.11.5, NumPy 1.25.2    |
+| 基于 Hydro 的 OJ     | 3.8.0+ Include NumPy    |
 | Ubuntu 22.04（内置） | 3.10.4                  |
-| 微软商店             | 最新正式版                   |
+| 微软商店             | 最新正式版              |
 
 ???+ warning "注意"
     本表格在本文撰写时（2025/01/15）时有效，建议前往相关平台重新查证．
@@ -495,7 +495,7 @@ Python 中的输入输出主要通过内置函数 `input()` 和 `print()` 完成
 [1, 1, 2, 3] [3, 4, 3, 4] [3, 1, 4, 1]
 ```
 
-上述程序实际上相当于先读入一个 N 行 3 列的矩阵，然后将其转置成 3 行 N 列的矩阵，也就是外层列表中嵌套了 3 个列表，最后将代表这起点、终点、权值的 3 个列表分别赋值给 u, v, w．内置函数 [`zip()`](https://docs.python.org/zh-cn/3/library/functions.html#zip) 可以将多个等长序列中的对应元素拼接在「元组」内，得到新序列．而 `map()` 其实是函数式编程的一种操作，它将一个给定函数作用于 `zip()` 所产生序列的元素，这里就是用 `list()` 将元组变成列表．你可以自行练习使用 `*` 和 [`zip()`](https://docs.python.org/zh-cn/3/library/functions.html#zip)，[`map()`](https://docs.python.org/zh-cn/3/library/functions.html#map) 以理解其含义．需要注意的是 Python 3 中 `zip()` 和 `map()` 创建的不再返回列表而是返回迭代器，这里暂不解释它们之间的异同，你可以认为迭代器可以产生列表中的各个元素，用 `list()` 套住迭代器就能生成列表．
+上述程序实际上相当于先读入一个 N 行 3 列的矩阵，然后将其转置成 3 行 N 列的矩阵，也就是外层列表中嵌套了 3 个列表，最后将代表起点、终点、权值的 3 个列表分别赋值给 u, v, w．内置函数 [`zip()`](https://docs.python.org/zh-cn/3/library/functions.html#zip) 可以将多个等长序列中的对应元素拼接在「元组」内，得到新序列．而 `map()` 其实是函数式编程的一种操作，它将一个给定函数作用于 `zip()` 所产生序列的元素，这里就是用 `list()` 将元组变成列表．你可以自行练习使用 `*` 和 [`zip()`](https://docs.python.org/zh-cn/3/library/functions.html#zip)，[`map()`](https://docs.python.org/zh-cn/3/library/functions.html#map) 以理解其含义．需要注意的是 Python 3 中 `zip()` 和 `map()` 不再返回列表而是返回迭代器，这里暂不解释它们之间的异同，你可以认为迭代器可以产生列表中的各个元素，用 `list()` 套住迭代器就能生成列表．
 
 #### [文件读写](https://docs.python.org/3/reference/compound_stmts.html#the-with-statement)
 
@@ -753,6 +753,9 @@ NameError: name 'nothing' is not defined
 以下是使用 `lru_cache` 优化计算斐波那契数列的例子：
 
 ```python
+from functools import lru_cache
+
+
 @lru_cache(maxsize=None)
 def fib(n):
     if n < 2:
@@ -764,22 +767,22 @@ def fib(n):
 
 在这里介绍一些写算法可能用得到的内置库，具体用法可以自行搜索或者阅读 [官方文档](https://docs.python.org/3/library/index.html)．
 
-| 库名                                                                  | 用途             |
-| ------------------------------------------------------------------- | -------------- |
-| [`array`](https://docs.python.org/3/library/array.html)             | 定长数组           |
-| [`argparse`](https://docs.python.org/3/library/argparse.html)       | 命令行参数处理        |
-| [`bisect`](https://docs.python.org/3/library/bisect.html)           | 二分查找           |
+| 库名                                                                | 用途                         |
+| ------------------------------------------------------------------- | ---------------------------- |
+| [`array`](https://docs.python.org/3/library/array.html)             | 定长数组                     |
+| [`argparse`](https://docs.python.org/3/library/argparse.html)       | 命令行参数处理               |
+| [`bisect`](https://docs.python.org/3/library/bisect.html)           | 二分查找                     |
 | [`collections`](https://docs.python.org/3/library/collections.html) | 有序字典、双端队列等数据结构 |
-| [`fractions`](https://docs.python.org/3/library/fractions.html)     | 有理数            |
-| [`heapq`](https://docs.python.org/3/library/heapq.html)             | 基于堆的优先级队列      |
-| [`io`](https://docs.python.org/3/library/io.html)                   | 文件流、内存流        |
-| [`itertools`](https://docs.python.org/3/library/itertools.html)     | 迭代器            |
-| [`math`](https://docs.python.org/3/library/math.html)               | 数学函数           |
-| [`os.path`](https://docs.python.org/3/library/os.html)              | 系统路径等          |
-| [`random`](https://docs.python.org/3/library/random.html)           | 随机数            |
-| [`re`](https://docs.python.org/3/library/re.html)                   | 正则表达式          |
-| [`struct`](https://docs.python.org/3/library/struct.html)           | 转换结构体和二进制数据    |
-| [`sys`](https://docs.python.org/3/library/sys.html)                 | 系统信息           |
+| [`fractions`](https://docs.python.org/3/library/fractions.html)     | 有理数                       |
+| [`heapq`](https://docs.python.org/3/library/heapq.html)             | 基于堆的优先级队列           |
+| [`io`](https://docs.python.org/3/library/io.html)                   | 文件流、内存流               |
+| [`itertools`](https://docs.python.org/3/library/itertools.html)     | 迭代器                       |
+| [`math`](https://docs.python.org/3/library/math.html)               | 数学函数                     |
+| [`os.path`](https://docs.python.org/3/library/os.html)              | 系统路径等                   |
+| [`random`](https://docs.python.org/3/library/random.html)           | 随机数                       |
+| [`re`](https://docs.python.org/3/library/re.html)                   | 正则表达式                   |
+| [`struct`](https://docs.python.org/3/library/struct.html)           | 转换结构体和二进制数据       |
+| [`sys`](https://docs.python.org/3/library/sys.html)                 | 系统信息                     |
 
 ## 从例题对比 C++ 与 Python
 
@@ -1022,7 +1025,7 @@ def fib(n):
     
     
     def add_path(f, t, v):  # 在前向星中加边
-        # 如果要修改全局变量，要使用 global 来声名
+        # 如果要修改全局变量，要使用 global 来声明
         global cnt, e, h
         # 调试时的输出语句，多个变量使用元组
         # print("add_path(%d,%d,%d)" % (f,t,v))

@@ -122,7 +122,7 @@ $$
 
 ### 矩阵公式
 
-由于离散傅立叶变换是一个 **线性** 算子，所以它可以用矩阵乘法来描述．在矩阵表示法中，离散傅立叶变换表示如下：
+由于离散傅里叶变换是一个 **线性** 算子，所以它可以用矩阵乘法来描述．在矩阵表示法中，离散傅里叶变换表示如下：
 
 $$
 \begin{bmatrix}
@@ -153,7 +153,7 @@ $$
 
 ## 快速傅里叶变换
 
-FFT 是一种高效实现 DFT 的算法，称为快速傅立叶变换（Fast Fourier Transform，FFT）．它对傅里叶变换的理论并没有新的发现，但是对于在计算机系统或者说数字系统中应用离散傅立叶变换，可以说是进了一大步．快速数论变换（NTT）是快速傅里叶变换（FFT）在数论基础上的实现．
+FFT 是一种高效实现 DFT 的算法，称为快速傅里叶变换（Fast Fourier Transform，FFT）．它对傅里叶变换的理论并没有新的发现，但是对于在计算机系统或者说数字系统中应用离散傅里叶变换，可以说是进了一大步．快速数论变换（NTT）是快速傅里叶变换（FFT）在数论基础上的实现．
 
 在 1965 年，Cooley 和 Tukey 发表了快速傅里叶变换算法．事实上 FFT 早在这之前就被发现过了，但是在当时现代计算机并未问世，人们没有意识到 FFT 的重要性．一些调查者认为 FFT 是由 Runge 和 König 在 1924 年发现的．但事实上高斯早在 1805 年就发明了这个算法，但一直没有发表．
 
@@ -251,13 +251,13 @@ $$
       // 递归 DFT
       DFT(g, n / 2, rev), DFT(h, n / 2, rev);
       // cur 是当前单位复根，对于 k = 0 而言，它对应的单位复根 omega^0_n = 1．
-      // step 是两个单位复根的差，即满足 omega^k_n = step*omega^{k-1}*n，
+      // step 是两个单位复根的差，即满足 omega^k_n = step*omega^{k-1}_n，
       // 定义等价于 exp(I*(-2*M_PI/n*rev))
       Comp cur(1, 0), step(cos(2 * M_PI / n), sin(-2 * M_PI * rev / n));
       for (int k = 0; k < n / 2;
-           ++k) {  // F(omega^k_n) = G(omega^k*{n/2}) + omega^k*n\*H(omega^k*{n/2})
+           ++k) {  // F(omega^k_n) = G(omega^k_{n/2}) + omega^k_n*H(omega^k_{n/2})
         tmp[k] = g[k] + cur * h[k];
-        // F(omega^{k+n/2}*n) = G(omega^k*{n/2}) - omega^k_n*H(omega^k\_{n/2})
+        // F(omega^{k+n/2}_n) = G(omega^k_{n/2}) - omega^k_n*H(omega^k_{n/2})
         tmp[k + n / 2] = g[k] - cur * h[k];
         cur *= step;
       }
@@ -489,7 +489,7 @@ $$
 
 推导的过程与方法一大同小异，最终我们得到 $A(\omega_n^k) = \sum_{j=0}^{n-1}a_jS\left(\omega_n^{j+k}\right)$．
 
-当且仅当 $j+k=0 \pmod{n}$ 时有 $S\left(\omega_n^{j+k}\right) = n$，否则为 $0$．因此 $A(\omega_n^k) = a_{n-k}\cdot n$．
+当且仅当 $j+k=0 \pmod{n}$ 时有 $S\left(\omega_n^{j+k}\right) = n$，否则为 $0$．因此 $A(\omega_n^k) = a_{(n-k)\bmod n}\cdot n$．
 
 这意味着我们将 $\{y_0,y_1,y_2,\cdots,y_{n-1}\}$ 做 DFT 变换后除以 $n$，再反转后 $n - 1$ 个元素，同样可以还原 $f(x)$ 的系数表示．
 

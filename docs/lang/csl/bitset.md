@@ -353,24 +353,24 @@ $$
 
 ### 与埃氏筛结合
 
-由于 `bitset` 快速的连续读写效率，使得它非常适合用于与 [埃氏筛](../../math/number-theory/sieve.md#埃拉托斯特尼筛法) 结合打质数表．
+`bitset` 较高的连续读写效率使得它非常适合用于与 [埃氏筛](../../math/number-theory/sieve.md#埃拉托斯特尼筛法) 结合打质数表．
 
 使用的方式也很简单，只需要将埃氏筛中的布尔数组替换成 `bitset` 即可．
 
 ??? note "速度测试"
     使用 [Quick C++ Benchmarks](https://quick-bench.com) 进行测试，编译器采用 `GCC 13.2`，编译参数为 `-std=c++20 -O2`．
     
-    | 算法                            | 函数名                      |
-    | ----------------------------- | ------------------------ |
-    | 埃氏筛 + C 风格布尔数组，不存储筛出来的素数      | `Eratosthenes_CArray`    |
-    | 埃氏筛 +`vector<bool>`，不存储筛出来的素数 | `Eratosthenes_vector`    |
-    | 埃氏筛 +`bitset`，不存储筛出来的素数       | `Eratosthenes_bitset`    |
-    | 埃氏筛 + C 风格布尔数组，存储筛出来的素数       | `Eratosthenes_CArray_sp` |
-    | 埃氏筛 +`vector<bool>`，存储筛出来的素数  | `Eratosthenes_vector_sp` |
-    | 埃氏筛 +`bitset`，存储筛出来的素数        | `Eratosthenes_bitset_sp` |
-    | 欧拉筛 + C 风格布尔数组                | `Euler_CArray`           |
-    | 欧拉筛 +`vector<bool>`           | `Euler_vector`           |
-    | 欧拉筛 +`bitset`                 | `Euler_bitset`           |
+    | 算法                                        | 函数名                   |
+    | ------------------------------------------- | ------------------------ |
+    | 埃氏筛 + C 风格布尔数组，不存储筛出来的素数 | `Eratosthenes_CArray`    |
+    | 埃氏筛 +`vector<bool>`，不存储筛出来的素数  | `Eratosthenes_vector`    |
+    | 埃氏筛 +`bitset`，不存储筛出来的素数        | `Eratosthenes_bitset`    |
+    | 埃氏筛 + C 风格布尔数组，存储筛出来的素数   | `Eratosthenes_CArray_sp` |
+    | 埃氏筛 +`vector<bool>`，存储筛出来的素数    | `Eratosthenes_vector_sp` |
+    | 埃氏筛 +`bitset`，存储筛出来的素数          | `Eratosthenes_bitset_sp` |
+    | 欧拉筛 + C 风格布尔数组                     | `Euler_CArray`           |
+    | 欧拉筛 +`vector<bool>`                      | `Euler_vector`           |
+    | 欧拉筛 +`bitset`                            | `Euler_bitset`           |
     
     -   当埃氏筛 **存储** 筛出来的素数时：
     

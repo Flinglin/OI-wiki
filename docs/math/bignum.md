@@ -294,7 +294,7 @@ $a-b=-(b-a)$
 
 重整的方式，也是从个位开始逐位向上处理进位．但是这里的进位可能非常大，甚至远大于 $9$，因为每一位被乘上之后都可能达到 $9b$ 的数量级．所以这里的进位不能再简单地进行 $-10$ 运算，而是要通过除以 $10$ 的商以及余数计算．详见代码注释，也可以参考下图展示的一个计算高精度数 $1337$ 乘以单精度数 $42$ 的过程．
 
-![](./images/multiplication-short.png)
+![](./images/multiplication-short.svg)
 
 当然，也是出于这个原因，这个方法需要特别关注乘数 $b$ 的范围．若它和 $10^9$（或相应整型的取值上界）属于同一数量级，那么需要慎用高精度—单精度乘法．
 
@@ -325,7 +325,7 @@ void mul_short(int a[], int b, int c[]) {
 
 于是可以将 $b$ 分解为它的所有数码，其中每个数码都是单精度数，将它们分别与 $a$ 相乘，再向左移动到各自的位置上相加即得答案．当然，最后也需要用与上例相同的方式处理进位．
 
-![](./images/multiplication-long.png)
+![](./images/multiplication-long.svg)
 
 注意这个过程与竖式乘法不尽相同，我们的算法在每一步乘的过程中并不进位，而是将所有的结果保留在对应的位置上，到最后再统一处理进位，但这不会影响结果．
 
@@ -834,8 +834,7 @@ $$
     Big::Big(const int b) {
       int c, d = b;
       len = 0;
-      // memset(a,0,sizeof a);
-      CLR(a);
+      memset(a, 0, sizeof a);
       while (d > MAXN) {
         c = d - (d / (MAXN + 1) * (MAXN + 1));
         d = d / (MAXN + 1);
@@ -846,7 +845,7 @@ $$
     
     Big::Big(const char* s) {
       int t, k, index, l;
-      CLR(a);
+      memset(a, 0, sizeof a);
       l = strlen(s);
       len = l / DLEN;
       if (l % DLEN) ++len;
@@ -855,21 +854,21 @@ $$
         t = 0;
         k = i - DLEN + 1;
         if (k < 0) k = 0;
-        g(j, k, i) t = t * 10 + s[j] - '0';
+        for (int j = k; j <= i; ++j) t = t * 10 + s[j] - '0';
         a[index++] = t;
       }
     }
     
     Big::Big(const Big& T) : len(T.len) {
-      CLR(a);
-      f(i, 0, len) a[i] = T.a[i];
+      memset(a, 0, sizeof a);
+      for (int i = 0; i < len; ++i) a[i] = T.a[i];
       // TODO:重载此处？
     }
     
     Big& Big::operator=(const Big& T) {
-      CLR(a);
+      memset(a, 0, sizeof a);
       len = T.len;
-      f(i, 0, len) a[i] = T.a[i];
+      for (int i = 0; i < len; ++i) a[i] = T.a[i];
       return *this;
     }
     
@@ -877,7 +876,7 @@ $$
       Big t(*this);
       int big = len;
       if (T.len > len) big = T.len;
-      f(i, 0, big) {
+      for (int i = 0; i < big; ++i) {
         t.a[i] += T.a[i];
         if (t.a[i] > MAXN) {
           ++t.a[i + 1];
@@ -906,7 +905,7 @@ $$
       }
       big = t1.len;
       int j = 0;
-      f(i, 0, big) {
+      for (int i = 0; i < big; ++i) {
         if (t1.a[i] < t2.a[i]) {
           j = i + 1;
           while (t1.a[j] == 0) ++j;
@@ -930,9 +929,9 @@ $$
       Big res;
       int up;
       int te, tee;
-      f(i, 0, len) {
+      for (int i = 0; i < len; ++i) {
         up = 0;
-        f(j, 0, T.len) {
+        for (int j = 0; j < T.len; ++j) {
           te = a[i] * T.a[j] + res.a[i + j] + up;
           if (te > MAXN) {
             tee = te - te / (MAXN + 1) * (MAXN + 1);
@@ -952,10 +951,12 @@ $$
     
     Big Big::operator/(const int& b) const {
       Big res;
-      int down = 0;
-      gd(i, len - 1, 0) {
-        res.a[i] = (a[i] + down * (MAXN + 1)) / b;
-        down = a[i] + down * (MAXN + 1) - res.a[i] * b;
+      // 余数乘上 MAXN + 1 后可能超出 int 的范围，需要使用 long long
+      long long down = 0;
+      for (int i = len - 1; i >= 0; --i) {
+        long long cur = a[i] + down * (MAXN + 1);
+        res.a[i] = cur / b;
+        down = cur % b;
       }
       res.len = len;
       while (res.len > 1 && res.a[res.len - 1] == 0) --res.len;
@@ -963,8 +964,9 @@ $$
     }
     
     int Big::operator%(const int& b) const {
-      int d = 0;
-      gd(i, len - 1, 0) d = (d * (MAXN + 1) % b + a[i]) % b;
+      // 余数乘上 MAXN + 1 后可能超出 int 的范围，需要使用 long long
+      long long d = 0;
+      for (int i = len - 1; i >= 0; --i) d = (d * (MAXN + 1) + a[i]) % b;
       return d;
     }
     
@@ -998,13 +1000,13 @@ $$
     
     void Big::print() const {
       printf("%d", a[len - 1]);
-      gd(i, len - 2, 0) { printf("%04d", a[i]); }
+      for (int i = len - 2; i >= 0; --i) printf("%04d", a[i]);
     }
     
     void print(const Big& s) {
       int len = s.len;
       printf("%d", s.a[len - 1]);
-      gd(i, len - 2, 0) { printf("%04d", s.a[i]); }
+      for (int i = len - 2; i >= 0; --i) printf("%04d", s.a[i]);
     }
     
     char s[100024];

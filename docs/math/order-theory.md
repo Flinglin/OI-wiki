@@ -24,22 +24,23 @@
 5.  非对称性（asymmetric）：$(\forall~a,b \in S)~~aRb \implies \lnot(bRa)$，
 6.  传递性（transitive）：$(\forall~a,b,c \in S)~~(aRb \land bRc) \implies aRc$，
 7.  连接性（connected）：$(\forall~a,b \in S)~~a \neq b \implies (aRb \lor bRa)$，
-8.  良基性（well-founded）：$(\exists~m \in S \neq \varnothing)~~(\forall~a \in S\setminus\{m\})~~\lnot(aRm)$（即非空集合 $S$ 中有极小元 $m$），
+8.  良基性（well-founded）：$(\forall~X \subseteq S)~~X \neq \varnothing \implies(\exists~m \in X)~~(\forall~a \in X\setminus\{m\})~~\lnot(aRm)$（即任意非空集合 $X$ 中有极小元 $m$），
 9.  不可比的传递性（transitive of incomparability）：$(\forall~a,b,c \in S)~~(\lnot(aRb \lor bRa) \land \lnot(bRc \lor cRb)) \implies \lnot(aRc \lor cRa)$（若 $\lnot(aRb \lor bRa)$，则称 $a$ 和 $b$ 是不可比的）．
 
 同时我们定义一些特殊的二元关系：
 
-| 二元关系                       | 自反性 | 反自反性 | 对称性 | 反对称性 | 非对称性 | 传递性 | 连接性 | 良基性 | 不可比的传递性 |
-| -------------------------- | --- | ---- | --- | ---- | ---- | --- | --- | --- | ------- |
-| 等价关系（equivalence relation） | 有   |      | 有   |      |      | 有   |     |     |         |
-| 预序（preorder，quasiorder）    | 有   |      |     |      |      | 有   |     |     |         |
-| 偏序（partial order）          | 有   |      |     | 有    |      | 有   |     |     |         |
-| 全序（total order）            | 有   |      |     | 有    |      | 有   | 有   |     |         |
-| 良序（well-order）             | 有   |      |     | 有    |      | 有   | 有   | 有   |         |
-| 严格预序（strict preorder）      |     | 有    |     |      |      | 有   |     |     |         |
-| 严格偏序（strict partial order） |     | 有    |     |      | 有    | 有   |     |     |         |
-| 严格弱序（strict weak order）    |     | 有    |     |      | 有    | 有   |     |     | 有       |
-| 严格全序（strict total order）   |     | 有    |     |      | 有    | 有   | 有   |     |         |
+| 二元关系                           | 自反性 | 反自反性 | 对称性 | 反对称性 | 非对称性 | 传递性 | 连接性 | 良基性 | 不可比的传递性 |
+| ---------------------------------- | ------ | -------- | ------ | -------- | -------- | ------ | ------ | ------ | -------------- |
+| 等价关系（equivalence relation）   | 有     |          | 有     |          |          | 有     |        |        |                |
+| 预序、拟序（preorder,quasi-order） | 有     |          |        |          |          | 有     |        |        |                |
+| 偏序（partial order）              | 有     |          |        | 有       |          | 有     |        |        |                |
+| 全序（total order）                | 有     |          |        | 有       |          | 有     | 有     |        |                |
+| 良拟序（well-quasi-order）         | 有     |          |        |          |          | 有     |        | 有     |                |
+| 良序（well-order）                 | 有     |          |        | 有       |          | 有     | 有     | 有     |                |
+| 严格预序（strict preorder）        |        | 有       |        |          |          | 有     |        |        |                |
+| 严格偏序（strict partial order）   |        | 有       |        |          | 有       | 有     |        |        |                |
+| 严格弱序（strict weak order）      |        | 有       |        |          | 有       | 有     |        |        | 有             |
+| 严格全序（strict total order）     |        | 有       |        |          | 有       | 有     | 有     |        |                |
 
 ### 关系间的运算
 
@@ -168,9 +169,9 @@ Zorn 引理与 **[选择公理](https://en.wikipedia.org/wiki/Axiom_of_choice)**
     ??? note "证明"
         考虑数学归纳法．当 $|S|\leq 3$ 时，命题显然成立．
         
-        假设命题对所有元素个数小于 $|S|$ 的偏序集都成立，令 $S$ 的宽度为 $d$. 若 $|S|$ 中所有元素均不可比，则命题显然成立，否则在 $S$ 中取一条长度大于 $1$ 的链，令其中的最小元为 $m$，最大元为 $M$.
+        假设命题对所有元素个数小于 $|S|$ 的偏序集都成立，令 $S$ 的宽度为 $d$. 若 $S$ 中所有元素均不可比，则命题显然成立，否则在 $S$ 中取一条长度大于 $1$ 的链，令其中的最小元为 $m$，最大元为 $M$.
         
-        令 $T=S\setminus\{m,M\}$，若 $T$ 中的宽度不超过 $d-1$，则由归纳假设知 $T$ 可被至多 $d-1$ 条链覆盖，进而 $S$ 可被这些链再加上链 $\{m,M\}$ 覆盖，命题成立，否则说明 $T$ 中的宽度也为 $d$，令 $T$ 中最长的一条反链为 $A$.
+        不妨设这条链是极大链，于是 $m$ 是 $S$ 的极小元，$M$ 是 $S$ 的极大元．令 $T=S\setminus\{m,M\}$，若 $T$ 中的宽度不超过 $d-1$，则由归纳假设知 $T$ 可被至多 $d-1$ 条链覆盖，进而 $S$ 可被这些链再加上链 $\{m,M\}$ 覆盖，命题成立，否则说明 $T$ 中的宽度也为 $d$，令 $T$ 中最长的一条反链为 $A$.
         
         我们考虑如下两个集合：
         

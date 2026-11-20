@@ -16,30 +16,30 @@ $n$ 元布尔函数也可以用含 $n$ 个变量的 **命题公式**（propositi
 
 以下是一些常见布尔函数，我们也会把这些布尔函数统称为 **逻辑运算符**（logical connective）或 **逻辑算子**（logical operator）：
 
-| 名称（数理逻辑）                                           | 其他名称                 | 记号                               |
-| -------------------------------------------------- | -------------------- | -------------------------------- |
-| 恒真（truth、tautology）                                |                      | $\top$                           |
-| 恒假（falsity、contradiction）                          |                      | $\bot$                           |
-| 命题                                                 | 自身                   | $A$                              |
-| 否定（negation）                                       | 非（NOT）               | $\lnot A$                        |
-| 合取（conjunction）                                    | 与（AND）               | $A \land B$                      |
-| 析取（disjunction）                                    | 或（OR）                | $A \lor B$                       |
-| 非合取（non-conjunction）                               | 与非（NAND）、Sheffer 竖线  | $A \bar{\land} B$、$A\uparrow B$  |
-| 非析取（non-disjunction）                               | 或非（NOR）              | $A \bar{\lor} B$、$A\downarrow B$ |
-|                                                    | 异或（Exclusive-OR，XOR） | $A \oplus B$                     |
-|                                                    | 同或（Exclusive-NOR）    | $A \odot B$                      |
-| 实质蕴含（material implication）[^note1]                 |                      | $A \to B$                        |
-| 实质非蕴含（material nonimplication）[^note1]             |                      | $A \nrightarrow B$               |
-| 反蕴涵（converse implication）[^note1]                  |                      | $A \gets B$                      |
-| 非反蕴涵（converse nonimplication）[^note1]              |                      | $A \nleftarrow B$                |
-| 双条件（biconditional）、等价（equivalence）[^note1][^note2] |                      | $A \leftrightarrow B$            |
-| 非等价（non-equivalence）[^note1][^note3]               |                      | $A \nleftrightarrow B$           |
+| 名称（数理逻辑）                                             | 其他名称                   | 记号                              |
+| ------------------------------------------------------------ | -------------------------- | --------------------------------- |
+| 恒真（truth、tautology）                                     |                            | $\top$                            |
+| 恒假（falsity、contradiction）                               |                            | $\bot$                            |
+| 命题                                                         | 自身                       | $A$                               |
+| 否定（negation）                                             | 非（NOT）                  | $\lnot A$                         |
+| 合取（conjunction）                                          | 与（AND）                  | $A \land B$                       |
+| 析取（disjunction）                                          | 或（OR）                   | $A \lor B$                        |
+| 非合取（non-conjunction）                                    | 与非（NAND）、Sheffer 竖线 | $A \bar{\land} B$、$A\uparrow B$  |
+| 非析取（non-disjunction）                                    | 或非（NOR）                | $A \bar{\lor} B$、$A\downarrow B$ |
+|                                                              | 异或（Exclusive-OR，XOR）  | $A \oplus B$                      |
+|                                                              | 同或（Exclusive-NOR）      | $A \odot B$                       |
+| 实质蕴含（material implication）[^note1]                     |                            | $A \to B$                         |
+| 实质非蕴含（material nonimplication）[^note1]                |                            | $A \nrightarrow B$                |
+| 反蕴涵（converse implication）[^note1]                       |                            | $A \gets B$                       |
+| 非反蕴涵（converse nonimplication）[^note1]                  |                            | $A \nleftarrow B$                 |
+| 双条件（biconditional）、等价（equivalence）[^note1][^note2] |                            | $A \leftrightarrow B$             |
+| 非等价（non-equivalence）[^note1][^note3]                    |                            | $A \nleftrightarrow B$            |
 
-对应的真值表（From [Wikipedia](https://commons.wikimedia.org/wiki/File:Logical_connectives_table.svg)）：
+对应的真值表（From [Wikipedia](https://commons.wikimedia.org/wiki/File:Logical_connectives_table.svg)，略作修改）：
 
 ![](./images/logical-connectives-table.svg)
 
-对应的 Venn 图和 [Hasse 图](./order-theory.md#偏序集的可视化表示hasse-图)（以集合的包含关系 $\subseteq$ 为偏序，From [Wikipedia](https://en.wikipedia.org/wiki/File:Logical_connectives_Hasse_diagram.svg)）：
+对应的 Venn 图和 [Hasse 图](./order-theory.md#偏序集的可视化表示hasse-图)（以集合的包含关系 $\subseteq$ 为偏序，From [Wikipedia](https://en.wikipedia.org/wiki/File:Logical_connectives_Hasse_diagram.svg)，略作修改）：
 
 ![](./images/logical-connectives-hasse-diagram.svg)
 
@@ -111,7 +111,7 @@ C++ 中的规定参见 [C++ 运算符优先级总表](../lang/op.md#c-运算符�
     -   $a\land(b\diamond c)=(a\land b)\diamond (a\land c)$，其中 $\diamond$ 可以为 $\land$、$\lor$、$\oplus$，
     -   $a\lor(b\diamond c)=(a\lor b)\diamond (a\lor c)$，其中 $\diamond$ 可以为 $\land$、$\lor$、$\odot$．
 -   **幂等**（idempotence）律：$x\land x=x$、$x\lor x=x$．
--   单调性：$a\to b\iff(a\land c)\to(b\land c)$、$a\to b\iff(a\lor c)\to(b\lor c)$．
+-   单调性：$a\to b\implies(a\land c)\to(b\land c)$、$a\to b\implies(a\lor c)\to(b\lor c)$．
 -   **吸收**（absorption）律：$x\land(x\lor y)=x\lor(x\land y)=x$．
 -   与「$\to$」的关系：
     -   $a \lor b \iff (\lnot a \to b) \land (\lnot b \to a)$，
@@ -154,7 +154,7 @@ C++ 中的规定参见 [C++ 运算符优先级总表](../lang/op.md#c-运算符�
 
 以下逻辑表达式均为合取范式：
 
--   $(\lnot A\lor\lnot B\lor C)\land(\lor D\lor\lnot E)$，
+-   $(\lnot A\lor\lnot B\lor C)\land(D\lor\lnot E)$，
 -   $(A\lor B)\land (C)$，
 -   $(A\lor B)$，
 -   $(A)$．
@@ -195,7 +195,7 @@ $$
 我们可以通过如下的步骤将任意一个只含有 $\lnot$、$\land$、$\lor$、$\oplus$ 运算的逻辑表达式变形为 ANF：
 
 1.  $\oplus$：直接展开，如 $(1\oplus x)\oplus(1\oplus x\oplus y)=1\oplus x\oplus 1\oplus x\oplus y=y$，
-2.  $\land$：用分配律展开，如 $x\land(1\oplus x\oplus y)=(x\land 1)\oplus (x\land x)\oplus (x\land y)=x\oplus (x\land y)$，
+2.  $\land$：用分配律展开，如 $x\land(1\oplus x\oplus y)=(x\land 1)\oplus (x\land x)\oplus (x\land y)=x\oplus x\oplus (x\land y)=x\land y$，
 3.  $\lnot$：将 $\lnot x$ 用 $1\oplus x$ 代替，如 $\lnot(1\oplus x\oplus y)=1\oplus 1\oplus x\oplus y=x\oplus y$，
 4.  $\lor$：将 $x\lor y$ 用 $1\oplus((1\oplus x)\land(1\oplus y))$ 或 $x\oplus y\oplus (x\land y)$ 代替，如 $(1\oplus x)\lor(1\oplus x\oplus y)=1\oplus((1\oplus 1\oplus x)\land(1\oplus 1\oplus x\oplus y))=1\oplus x\oplus(x\land y)$．
 

@@ -25,7 +25,7 @@ author: Ir1d, sshwy, Enter-tainer, H-J-Granger, ouuan, GavinZhengOI, hsfzLZH1, x
 
 在修改操作进行时，先在线段树上从上往下跳到被修改的点，删除所经过的点所指向的动态开点权值线段树上的原来的值，然后插入新的值，要经过 $O(\log n)$ 个线段树上的节点，在动态开点权值线段树上一次修改操作是 $O(\log n)$ 的，所以修改操作的时间复杂度为 $O(\log^2 n)$．
 
-在查询答案时，先取出该区间覆盖在线段树上的所有点，然后用类似于静态区间 $k$ 小值的方法，将这些点一起向左儿子或向右儿子跳．如果所有这些点左儿子存储的值大于等于 $k$，则往左跳，否则往右跳．由于最多只能覆盖 $O(\log n)$ 个节点，所以最多一次只有这么多个节点向下跳，时间复杂度为 $O(\log^2 n)$．
+在查询答案时，先取出该区间覆盖在线段树上的所有点，然后用类似于静态区间 $k$ 小值的方法，将这些点一起向左儿子或向右儿子跳．如果所有这些点左儿子存储的值之和大于等于 $k$，则往左跳，否则往右跳．由于最多只能覆盖 $O(\log n)$ 个节点，所以最多一次只有这么多个节点向下跳，时间复杂度为 $O(\log^2 n)$．
 
 由于线段树的常数较大，在实现中往往使用常数更小且更方便处理前缀和的 **树状数组** 实现．另外空间复杂度是 $O(n\log^2 n)$ 的，使用时 **注意空间限制**．
 
@@ -43,7 +43,7 @@ author: Ir1d, sshwy, Enter-tainer, H-J-Granger, ouuan, GavinZhengOI, hsfzLZH1, x
     using namespace std;
     constexpr int MAXN = 1000010;
     int n, m, a[MAXN], u[MAXN], x[MAXN], l[MAXN], r[MAXN], k[MAXN], cur, cur1, cur2,
-        q1[MAXN], q2[MAXN], v[MAXN];
+        q1[MAXN], q2[MAXN], q[MAXN], v[MAXN];
     char op[MAXN];
     set<int> ST;
     map<int, int> mp;
@@ -75,35 +75,36 @@ author: Ir1d, sshwy, Enter-tainer, H-J-Granger, ouuan, GavinZhengOI, hsfzLZH1, x
     } st;
     
     // 树状数组实现
-    namepace fenwick_impl {
-      int lowbit(int o) { return (o & (-o)); }
+    namespace fenwick_impl {
+    int lowbit(int o) { return (o & (-o)); }
     
-      void upd(int o, int x, int v) {
-        for (; o <= n; o += lowbit(o)) st.update(st.rt[o], 1, n, x, v);
-      }
+    void upd(int o, int x, int v) {
+      for (; o <= n; o += lowbit(o)) st.update(st.rt[o], 1, n, x, v);
+    }
     
-      void gtv(int o, int* A, int& p) {
-        p = 0;
-        for (; o; o -= lowbit(o)) A[++p] = st.rt[o];
-      }
+    void gtv(int o, int* A, int& p) {
+      p = 0;
+      for (; o; o -= lowbit(o)) A[++p] = st.rt[o];
+    }
     
-      int qry(int l, int r, int k) {
-        if (l == r) return l;
-        int mid = (l + r) >> 1, siz = 0;
-        for (int i = 1; i <= cur1; i++) siz += st.sum[st.lc[q1[i]]];
-        for (int i = 1; i <= cur2; i++) siz -= st.sum[st.lc[q2[i]]];
-        // printf("j %d %d %d %d\n",cur1,cur2,siz,k);
-        if (siz >= k) {
-          for (int i = 1; i <= cur1; i++) q1[i] = st.lc[q1[i]];
-          for (int i = 1; i <= cur2; i++) q2[i] = st.lc[q2[i]];
-          return qry(l, mid, k);
-        } else {
-          for (int i = 1; i <= cur1; i++) q1[i] = st.rc[q1[i]];
-          for (int i = 1; i <= cur2; i++) q2[i] = st.rc[q2[i]];
-          return qry(mid + 1, r, k - siz);
-        }
+    int qry(int l, int r, int k) {
+      if (l == r) return l;
+      int mid = (l + r) >> 1, siz = 0;
+      for (int i = 1; i <= cur1; i++) siz += st.sum[st.lc[q1[i]]];
+      for (int i = 1; i <= cur2; i++) siz -= st.sum[st.lc[q2[i]]];
+      // printf("j %d %d %d %d\n",cur1,cur2,siz,k);
+      if (siz >= k) {
+        for (int i = 1; i <= cur1; i++) q1[i] = st.lc[q1[i]];
+        for (int i = 1; i <= cur2; i++) q2[i] = st.lc[q2[i]];
+        return qry(l, mid, k);
+      } else {
+        for (int i = 1; i <= cur1; i++) q1[i] = st.rc[q1[i]];
+        for (int i = 1; i <= cur2; i++) q2[i] = st.rc[q2[i]];
+        return qry(mid + 1, r, k - siz);
       }
     }
+    }  // namespace fenwick_impl
+    
     using namespace fenwick_impl;
     
     // 线段树实现

@@ -76,23 +76,23 @@ C++ 标准保证 `1 == sizeof(char) <= sizeof(short) <= sizeof(int) <= sizeof(lo
 
 下表给出在 **一般情况下**，各整数类型的位宽和表示范围大小（少数平台上一些类型的表示范围可能与下表不同）：
 
-| 类型名                                                                   | 等价类型                     | 位宽（C++ 标准） | 位宽（常见） | 位宽（较罕见）                    |
-| --------------------------------------------------------------------- | ------------------------ | ---------- | ------ | -------------------------- |
-| `signed char`                                                         | `signed char`            | $8$        | -      | -                          |
-| `unsigned char`                                                       | `unsigned char`          | $8$        | -      | -                          |
-| `short`,`short int`,`signed short`,`signed short int`                 | `short int`              | $\geq 16$  | $16$   | -                          |
-| `unsigned short`,`unsigned short int`                                 | `unsigned short int`     | $\geq 16$  | $16$   | -                          |
-| `int`,`signed`,`signed int`                                           | `int`                    | $\geq 16$  | $32$   | $16$（常见于 Win16 API）        |
-| `unsigned`,`unsigned int`                                             | `unsigned int`           | $\geq 16$  | $32$   | $16$（常见于 Win16 API）        |
-| `long`,`long int`,`signed long`,`signed long int`                     | `long int`               | $\geq 32$  | $32$   | $64$（常见于 64 位 Linux、macOS） |
-| `unsigned long`,`unsigned long int`                                   | `unsigned long int`      | $\geq 32$  | $32$   | $64$（常见于 64 位 Linux、macOS） |
-| `long long`,`long long int`,`signed long long`,`signed long long int` | `long long int`          | $\geq 64$  | $64$   | -                          |
-| `unsigned long long`,`unsigned long long int`                         | `unsigned long long int` | $\geq 64$  | $64$   | -                          |
+| 类型名                                                                | 等价类型                 | 位宽（C++ 标准） | 位宽（常见） | 位宽（较罕见）                    |
+| --------------------------------------------------------------------- | ------------------------ | ---------------- | ------------ | --------------------------------- |
+| `signed char`                                                         | `signed char`            | $8$              | -            | -                                 |
+| `unsigned char`                                                       | `unsigned char`          | $8$              | -            | -                                 |
+| `short`,`short int`,`signed short`,`signed short int`                 | `short int`              | $\geq 16$        | $16$         | -                                 |
+| `unsigned short`,`unsigned short int`                                 | `unsigned short int`     | $\geq 16$        | $16$         | -                                 |
+| `int`,`signed`,`signed int`                                           | `int`                    | $\geq 16$        | $32$         | $16$（常见于 Win16 API）          |
+| `unsigned`,`unsigned int`                                             | `unsigned int`           | $\geq 16$        | $32$         | $16$（常见于 Win16 API）          |
+| `long`,`long int`,`signed long`,`signed long int`                     | `long int`               | $\geq 32$        | $32$         | $64$（常见于 64 位 Linux、macOS） |
+| `unsigned long`,`unsigned long int`                                   | `unsigned long int`      | $\geq 32$        | $32$         | $64$（常见于 64 位 Linux、macOS） |
+| `long long`,`long long int`,`signed long long`,`signed long long int` | `long long int`          | $\geq 64$        | $64$         | -                                 |
+| `unsigned long long`,`unsigned long long int`                         | `unsigned long long int` | $\geq 64$        | $64$         | -                                 |
 
 当位宽为 $x$ 时，有符号类型的表示范围为 $-2^{x-1}\sim 2^{x-1}-1$[^note16], 无符号类型的表示范围为 $0 \sim 2^x-1$. 具体而言，有下表：
 
-| 位宽   | 表示范围                                              |
-| ---- | ------------------------------------------------- |
+| 位宽 | 表示范围                                                  |
+| ---- | --------------------------------------------------------- |
 | $8$  | 有符号：$-2^{7}\sim 2^{7}-1$, 无符号：$0 \sim 2^{8}-1$    |
 | $16$ | 有符号：$-2^{15}\sim 2^{15}-1$, 无符号：$0 \sim 2^{16}-1$ |
 | $32$ | 有符号：$-2^{31}\sim 2^{31}-1$, 无符号：$0 \sim 2^{32}-1$ |
@@ -208,12 +208,12 @@ C++ 标准保证 `1 == sizeof(char) <= sizeof(short) <= sizeof(int) <= sizeof(lo
 -   `double`：双精度浮点类型．如果支持就会匹配 IEEE-754 binary64 格式．
 -   `long double`：扩展精度浮点类型．如果支持就会匹配 IEEE-754 binary128 格式，否则如果支持就会匹配 IEEE-754 binary64 扩展格式，否则匹配某种精度优于 binary64 而值域至少和 binary64 一样好的非 IEEE-754 扩展浮点格式，否则匹配 IEEE-754 binary64 格式．
 
-| 浮点格式                   | 位宽        | 最大正数                       | 精度位数             |
-| ---------------------- | --------- | -------------------------- | ---------------- |
-| IEEE-754 binary32 格式   | $32$      | $3.4\times 10^{38}$        | $6\sim 9$        |
-| IEEE-754 binary64 格式   | $64$      | $1.8\times 10^{308}$       | $15\sim 17$      |
+| 浮点格式                   | 位宽      | 最大正数                   | 精度位数         |
+| -------------------------- | --------- | -------------------------- | ---------------- |
+| IEEE-754 binary32 格式     | $32$      | $3.4\times 10^{38}$        | $6\sim 9$        |
+| IEEE-754 binary64 格式     | $64$      | $1.8\times 10^{308}$       | $15\sim 17$      |
 | IEEE-754 binary64 扩展格式 | $\geq 80$ | $\geq 1.2\times 10^{4932}$ | $\geq 18\sim 21$ |
-| IEEE-754 binary128 格式  | $128$     | $1.2\times 10^{4932}$      | $33\sim 36$      |
+| IEEE-754 binary128 格式    | $128$     | $1.2\times 10^{4932}$      | $33\sim 36$      |
 
 > IEEE-754 浮点格式的最小负数是最大正数的相反数．
 
@@ -289,7 +289,7 @@ C++11 起提供了定宽整数的支持，具体如下：
     
     `int64_t` 在 64 位 Windows 下一般为 `long long int`, 而在 64 位 Linux 下一般为 `long int`, 所以这段代码在使用 64 位 Linux 下的 GCC 时不能通过编译，而使用 64 位 Windows 下的 MSVC 时可以通过编译，因为 `std::max` 要求输入的两个参数类型必须相同．
 
-此外，C++17 起在 `<limits>` 中提供了 `std::numeric_limits` 类模板，用于查询各种算数类型的属性，如最大值、最小值、是否是整形、是否有符号等．
+此外，C++ 在 `<limits>` 中提供了 `std::numeric_limits` 类模板，用于查询各种算术类型的属性，如最大值、最小值、是否是整型、是否有符号等．
 
 ```cpp
 #include <cstdint>
@@ -298,7 +298,8 @@ C++11 起提供了定宽整数的支持，具体如下：
 std::numeric_limits<int32_t>::max();  // int32_t 的最大值, 2'147'483'647
 std::numeric_limits<int32_t>::min();  // int32_t 的最小值, -2'147'483'648
 
-std::numeric_limits<double>::min();  // double 的最小值, 约为 2.22507e-308
+std::numeric_limits<double>::min();  // double 的最小正规格化值,
+                                     // 约为 2.22507e-308
 std::numeric_limits<double>::epsilon();  // 1.0 与 double 的下个可表示值的差,
                                          // 约为 2.22045e-16
 ```

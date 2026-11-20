@@ -32,7 +32,7 @@ $$
 
 那么，三维空间中两点的欧氏距离公式呢？我们来观察下图．
 
-![dis-3-dimensional](./images/distance-0.png)
+![dis-3-dimensional](./images/distance-0.svg)
 
 我们很容易发现，在 $\triangle ADC$ 中，$\angle ADC = 90^\circ$；在 $\triangle ACB$ 中，$\angle ACB = 90^\circ$．
 
@@ -45,7 +45,7 @@ $$
 
 #### 定义
 
-由此可得，三维空间中欧氏距离的距离公式为：
+由此可得，三维空间中欧氏距离公式为：
 
 $$
 \begin{gathered}
@@ -58,7 +58,7 @@ $$
 
 [NOIP2017 提高组 奶酪](https://uoj.ac/problem/332) 就运用了这一知识，可以作为欧氏距离的例题．
 
-以此类推，我们就得到了 $n$ 维空间中欧氏距离的距离公式：对于 $\vec A(x_{11}, x_{12}, \cdots,x_{1n}) ,~ \vec B(x_{21}, x_{22}, \cdots,x_{2n})$，有
+以此类推，我们就得到了 $n$ 维空间中欧氏距离公式：对于 $\vec A(x_{11}, x_{12}, \cdots,x_{1n}) ,~ \vec B(x_{21}, x_{22}, \cdots,x_{2n})$，有
 
 $$
 \begin{aligned}
@@ -83,7 +83,7 @@ $$
 
 观察下图：
 
-![manhattan-dis-diff](./images/distance-1.png)
+![manhattan-dis-diff](./images/distance-1.svg)
 
 在 $A,B$ 间，黄线、橙线都表示曼哈顿距离，而红线、蓝线表示等价的曼哈顿距离，绿线表示欧氏距离．
 
@@ -130,37 +130,12 @@ $$
 ??? note "参考代码"
     === "C++"
         ```cpp
-        #include <algorithm>
-        #include <cstdio>
-        using namespace std;
-        
-        int main() {
-          int n, x, y, minx = 0x7fffffff, maxx = 0, miny = 0x7fffffff, maxy = 0;
-          scanf("%d", &n);
-          for (int i = 1; i <= n; i++) {
-            scanf("%d%d", &x, &y);
-            minx = min(minx, x + y), maxx = max(maxx, x + y);
-            miny = min(miny, x - y), maxy = max(maxy, x - y);
-          }
-          printf("%d\n", max(maxx - minx, maxy - miny));
-          return 0;
-        }
+        --8<-- "docs/geometry/code/distance/distance_1.cpp"
         ```
     
     === "Python"
         ```python
-        minx = 0x7FFFFFFF
-        maxx = 0
-        miny = 0x7FFFFFFF
-        maxy = 0
-        n = int(input())
-        for i in range(1, n + 1):
-            x, y = map(lambda x: int(x), input().split())
-            minx = min(minx, x + y)
-            maxx = max(maxx, x + y)
-            miny = min(miny, x - y)
-            maxy = max(maxy, x - y)
-        print(max(maxx - minx, maxy - miny))
+        --8<-- "docs/geometry/code/distance/distance_1.py"
         ```
 
 其实还有第二种做法，那就是把曼哈顿距离转化为切比雪夫距离求解，最后部分会讲到．
@@ -169,7 +144,7 @@ $$
 
 ### 定义
 
-切比雪夫距离（Chebyshev distance）是向量空间中的一种度量，二个点之间的距离定义为其各坐标数值差的最大值．[^ref1]
+切比雪夫距离（Chebyshev distance）是向量空间中的一种度量，两个点之间的距离定义为其各坐标数值差的绝对值的最大值．[^ref1]
 
 在二维空间内，两个点之间的切比雪夫距离为它们横坐标之差的绝对值与纵坐标之差的绝对值的最大值．设点 $A(x_1,y_1),B(x_2,y_2)$，则 $A,B$ 之间的切比雪夫距离用公式可以表示为：
 
@@ -177,7 +152,7 @@ $$
 d(A,B) = \max(|x_1 - x_2|, |y_1 - y_2|)
 $$
 
-$n$ 维空间中切比雪夫距离的距离公式可以表示为：
+$n$ 维空间中切比雪夫距离公式可以表示为：
 
 $$
 \begin{aligned}
@@ -203,7 +178,7 @@ $$
 
 通过公式，我们很容易得到方程 $|x| + |y| = 1$．
 
-将绝对值展开，得到 $4$ 个 一次函数，分别是：
+将绝对值展开，得到 $4$ 个一次函数，分别是：
 
 $$
 \begin{aligned}
@@ -218,9 +193,9 @@ $$
 
 ![dis-diff-square-1](./images/distance-3.svg)
 
-正方形边界上所有的点到原点的 曼哈顿距离 都是 $1$．
+正方形边界上所有的点到原点的曼哈顿距离都是 $1$．
 
-同理，我们再考虑画出平面直角坐标系上所有到原点的 切比雪夫距离 为 $1$ 的点．
+同理，我们再考虑画出平面直角坐标系上所有到原点的切比雪夫距离为 $1$ 的点．
 
 通过公式，我们知道 $\max(|x|,|y|)=1$．
 
@@ -305,40 +280,12 @@ $$
 ??? note "参考代码"
     === "C++"
         ```cpp
-        #include <algorithm>
-        #include <cstdio>
-        using namespace std;
-        
-        int main() {
-          int n, x, y, a, b, minx = 0x7fffffff, maxx = 0, miny = 0x7fffffff, maxy = 0;
-          scanf("%d", &n);
-          for (int i = 1; i <= n; i++) {
-            scanf("%d%d", &a, &b);
-            x = a + b, y = a - b;
-            minx = min(minx, x), maxx = max(maxx, x);
-            miny = min(miny, y), maxy = max(maxy, y);
-          }
-          printf("%d\n", max(maxx - minx, maxy - miny));
-          return 0;
-        }
+        --8<-- "docs/geometry/code/distance/distance_2.cpp"
         ```
     
     === "Python"
         ```python
-        minx = 0x7FFFFFFF
-        maxx = 0
-        miny = 0x7FFFFFFF
-        maxy = 0
-        n = int(input())
-        for i in range(1, n + 1):
-            a, b = map(lambda x: int(x), input().split())
-            x = a + b
-            y = a - b
-            minx = min(minx, x)
-            maxx = max(maxx, x)
-            miny = min(miny, y)
-            maxy = max(maxy, y)
-        print(max(maxx - minx, maxy - miny))
+        --8<-- "docs/geometry/code/distance/distance_2.py"
         ```
 
 对比两份代码，我们又能够发现，两种不同的思路，写出来的代码却是完全等价的，是不是很神奇呢？当然，更高深的东西需要大家另行研究．

@@ -125,7 +125,7 @@ void exp(Int G[], Int C[]) {
 
 下面讨论有标号二分图计数，
 
-我们设 $b_n$ 表示 n 个结点的二分图方案数，$g_n$ 表示 $n$ 个结点对结点进行 2 染色，满足相同颜色的结点之间不存在边的图的方案数．枚举其中一种颜色节点的数量，有[^2]：
+我们设 $b_n$ 表示 $n$ 个结点的二分图方案数，$g_n$ 表示 $n$ 个结点对结点进行 $2$ 染色，满足相同颜色的结点之间不存在边的图的方案数．枚举其中一种颜色结点的数量，有[^2]：
 
 $$
 g_n = \sum_{i=0}^{n} \binom{n}{i}2^{i(n-i)}
@@ -151,7 +151,7 @@ $$
 $$
 \begin{align}
 \sum_{i=0}^{n} \binom{n}{i}2^{i(n-i)} &= \sum_{i=1}^{n} c_{n, i} 2^i \\
-c_{n, i} &= \sum_{i=0}{n-1} \binom{n-1}{i-1} c_{n, 1}c_{n-i,k-1}
+c_{n, k} &= \sum_{i=1}^{n-1} \binom{n-1}{i-1} c_{i, 1}c_{n-i,k-1}
 \end{align}
 $$
 
@@ -221,7 +221,7 @@ $$
 -   [HDU 5279. YJC plays Minecraft](https://acm.hdu.edu.cn/showproblem.php?pid=5279)
 -   [Luogu P7364. 有标号二分图计数](https://www.luogu.com.cn/problem/P7364)
 -   [Luogu P5827. 点双连通图计数](https://www.luogu.com.cn/problem/P5827)
--   [Luogu P5827. 边双连通图计数](https://www.luogu.com.cn/problem/P5828)
+-   [Luogu P5828. 边双连通图计数](https://www.luogu.com.cn/problem/P5828)
 -   [Luogu P6596. How Many of Them](https://www.luogu.com.cn/problem/P6596)
 -   [Luogu U152448. 有标号强连通图计数](https://www.luogu.com.cn/problem/U152448)
 -   [Project Euler 434. Rigid graphs](https://projecteuler.net/problem=434)
@@ -239,7 +239,7 @@ $$
 \end{align}
 $$
 
-设 $\mathcal{E}(A(x))$ 的各项系数为 $b_i$，定义辅助数组 $c_i = \sum_{d|n} d a_d$，则有递推公式
+设 $\mathcal{E}(A(x))$ 的各项系数为 $b_i$，定义辅助数组 $c_i = \sum_{d|i} d a_d$，则有递推公式
 
 $$
 n b_n = c_n + \sum_{i=1}^{n-1} c_i b_{n-i}
@@ -259,7 +259,7 @@ $$
 
 #### 有根树
 
-有标号情况以在前文中解决，下面考察无标号有根树，设其 OGF 为 $F(x)$，应用欧拉变换，可得：
+有标号情况已在前文中解决，下面考察无标号有根树，设其 OGF 为 $F(x)$，应用欧拉变换，可得：
 
 $$
 F(x) = x\mathcal{E}(F(x))
@@ -273,7 +273,7 @@ $$
 
 当 $n$ 是奇数时：
 
-必然存在一棵子树大小 $\geq \left\lceil \frac{n}{2}\right\rceil$，枚举这棵子树的大小有．
+必然存在一棵子树大小 $\geq \left\lceil \frac{n}{2}\right\rceil$，枚举这棵子树的大小有：
 
 $$
 g_n = f_n - \sum_{i=\left\lceil\frac{n}{2}\right\rceil}^{n-1} f_i f_{n-i}
@@ -281,7 +281,7 @@ $$
 
 当 $n$ 是偶数时：
 
-注意到当有两个重心的情况时，上面的过程只会减去一次，因此还需要减去
+注意到当有两个重心时，上面的过程只会减去一次，因此还需要减去
 
 $$
 g_n = f_n - \sum_{i=\frac{n}{2}+1}^{n-1} f_i f_{n-i} - \binom{f_{\frac{n}{2}}}{2}
@@ -309,7 +309,7 @@ $$
 
 本题中置换群 $G$ 为顶点的 $n$ 阶对称群生成的边集置换群，但暴力做法的枚举量为 $O(n!)$，无法通过此题．
 
-考虑根据按照置换的循环结构进行分类，每种循环结构对应一种数的分拆，我们用 dfs() 生成分拆，那么问题即转化为求每一种分拆 $p$ 所对应的置换数目 $w(p)$ 和每一类置换中的循环个数 $c(p)$，答案为
+考虑按照置换的循环结构进行分类，每种循环结构对应一种数的分拆，我们用 dfs() 生成分拆，那么问题即转化为求每一种分拆 $p$ 所对应的置换数目 $w(p)$ 和每一类置换中的循环个数 $c(p)$，答案为
 
 $$
 \frac{1}{|G|} \sum_{p \in P} w(p) m^{c(p)}

@@ -10,29 +10,29 @@ author: GoodCoder666, Ir1d, H-J-Granger, NachtgeistW, StudyingFather, Enter-tain
 
 NOI 竞赛（自 2021 年 9 月 1 日）的环境要求如下．[^ref2]
 
-| 类别          | 软件或模块                     | 版本                 | 备注说明                                           |
-| :---------- | :------------------------ | :----------------- | :--------------------------------------------- |
-| 系统          | Linux 内核                  | `5.4.0-42-generic` | 64 位 x86 (AMD64)                               |
-| 语言环境        | GCC（`gcc` 和 `g++`）        | `9.3.0`            | C 和 C++ 编译器                                    |
-|             | FPC                       | `3.0.4`            | Pascal 编译器（注：自 2022 年起，NOI 系列竞赛不再支持 Pascal 语言） |
-|             | Python 2                  | `2.7`              | 非竞赛语言                                          |
-|             | Python 3                  | `3.8`              | 非竞赛语言                                          |
-| 调试工具        | GDB                       | `9.1`              |                                                |
-|             | DDD                       | `3.3.12`           | GDB 的 GUI 前端                                   |
-| 集成开发环境（IDE） | Code::Blocks              | `20.03`            | C/C++ IDE                                      |
-|             | Lazarus                   | `2.0.6`            | Pascal IDE                                     |
-|             | Geany                     | `1.36`             | C/C++/Pascal（轻量级）IDE                           |
-| 文本编辑工具      | Visual Studio Code        | `1.54.3`           |                                                |
-|             | GNU Emacs                 | `26.3`             |                                                |
-|             | gedit                     | `3.36.2`           |                                                |
-|             | Vim                       | `8.1`              |                                                |
-|             | Joe                       | `4.6`              |                                                |
-|             | nano                      | `4.8`              |                                                |
-|             | Sublime Text              | `3.2.2`            |                                                |
-| 其它软件        | Firefox                   | `79.0`             | 浏览器                                            |
-|             | Midnight Commander (`mc`) | `4.8.24`           | 文件管理器                                          |
-|             | xterm (uxterm)            | `3.5.3`            | 终端                                             |
-|             | Arbiter-local             | `1.02`             | 程序评测工具单机版                                      |
+| 类别                | 软件或模块                | 版本               | 备注说明                                                            |
+| :------------------ | :------------------------ | :----------------- | :------------------------------------------------------------------ |
+| 系统                | Linux 内核                | `5.4.0-42-generic` | 64 位 x86 (AMD64)                                                   |
+| 语言环境            | GCC（`gcc` 和 `g++`）     | `9.3.0`            | C 和 C++ 编译器                                                     |
+|                     | FPC                       | `3.0.4`            | Pascal 编译器（注：自 2022 年起，NOI 系列竞赛不再支持 Pascal 语言） |
+|                     | Python 2                  | `2.7`              | 非竞赛语言                                                          |
+|                     | Python 3                  | `3.8`              | 非竞赛语言                                                          |
+| 调试工具            | GDB                       | `9.1`              |                                                                     |
+|                     | DDD                       | `3.3.12`           | GDB 的 GUI 前端                                                     |
+| 集成开发环境（IDE） | Code::Blocks              | `20.03`            | C/C++ IDE                                                           |
+|                     | Lazarus                   | `2.0.6`            | Pascal IDE                                                          |
+|                     | Geany                     | `1.36`             | C/C++/Pascal（轻量级）IDE                                           |
+| 文本编辑工具        | Visual Studio Code        | `1.54.3`           |                                                                     |
+|                     | GNU Emacs                 | `26.3`             |                                                                     |
+|                     | gedit                     | `3.36.2`           |                                                                     |
+|                     | Vim                       | `8.1`              |                                                                     |
+|                     | Joe                       | `4.6`              |                                                                     |
+|                     | nano                      | `4.8`              |                                                                     |
+|                     | Sublime Text              | `3.2.2`            |                                                                     |
+| 其它软件            | Firefox                   | `79.0`             | 浏览器                                                              |
+|                     | Midnight Commander (`mc`) | `4.8.24`           | 文件管理器                                                          |
+|                     | xterm (uxterm)            | `3.5.3`            | 终端                                                                |
+|                     | Arbiter-local             | `1.02`             | 程序评测工具单机版                                                  |
 
 考场环境与一般环境会有一系列差异：
 
@@ -70,13 +70,16 @@ Windows 10 在一周年更新时推出了 Linux 子系统（WSL），在 2020 �
     
     如果你正在使用 1607 以下版本的 Windows 10，你的系统不支持 WSL．
 
-1.  以管理员身份打开 Windows PowerShell（右击「开始」按钮，选择 Windows PowerShell（管理员）或 Windows 终端（管理员）)
+1.  以管理员身份打开 Windows PowerShell（右击「开始」按钮，选择 Windows PowerShell（管理员）或 Windows 终端（管理员））
 
 2.  输入 `wsl --install`，并等待所有组件自动安装完成．期间你可能需要重启你的计算机来启用必要的 Windows 功能．
 
 3.  安装完成后，你可以在「开始」菜单或 Windows 终端的标签页中找到你安装的发行版．
 
 4.  接下来，请转到下面「配置分发版」一节完成其他设置．
+
+???+ tip "提示"
+    如果你的 `wsl --install` 进度条很慢或多次失败，请在 [GitHub 上的 release 页面](https://github.com/microsoft/wsl/releases) 下载后缀名为 `.msi` 的离线安装包．
 
 ### 手动安装[^ref4]
 
@@ -141,6 +144,8 @@ wsl --set-default-version 2
 ???+ warning "Warning"
     Microsoft Store 的 Ubuntu 随着 Ubuntu 的更新而更新，因此内容可能会有所改变．如果想获取稳定的 Ubuntu 长期支持版，可以在 Microsoft Store 安装 Ubuntu 的 LTS 版本．
 
+由于 Microsoft Store 在国内下载速度不稳定，推荐访问 [Ubuntu 官网](https://ubuntu.com/download/wsl) 获取最新发布的 LTS 版本，或前往 [Ubuntu Release](https://releases.ubuntu.com/) 获取先前版本，下载后缀名为 `.wsl` 的文件后双击即可，对于其他版本，也可在 [WSL/Distribution.json](https://github.com/microsoft/WSL/blob/master/distributions/DistributionInfo.json) 中找到对应网址．
+
 ## 配置分发版[^ref5]
 
 本章以 Windows 自动安装的 Ubuntu 为例．
@@ -198,26 +203,18 @@ sudo apt install g++
 
 ### 更换为国内软件源
 
-Ubuntu 默认的软件源在国外．可以换成国内的软件源以加快速度，如 [清华 TUNA 的软件源](https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/)．
+Ubuntu 默认的软件源在国外，可以换成国内镜像以加快速度．请参考 [MirrorZ 的 Ubuntu 帮助页面](https://help.mirrorz.org/ubuntu/)，选择与自己系统版本相匹配的配置（可使用 `lsb_release -a` 查看 Ubuntu 版本），并按页面给出的命令操作．
 
 ???+ warning "使用与自己系统版本匹配的软件源"
-    请在页面中寻找与自己系统版本相配的源（可使用 `sudo lsb_release -a` 查看 Ubuntu 版本）．
-    
     除非你知道你在做什么，否则不要使用与自己的系统版本不匹配的源！
 
-使用以下命令更新软件和软件源：
+换源后运行以下命令更新软件：
 
 ```console
 $ sudo su # 执行这行指令后，终端提示符会从 $ 变成 #，执行下文的命令前注意关注提示符
 [sudo] xxx 的密码：
-# cp /etc/apt/sources.list /etc/apt/sources.list.bak
-# vim /etc/apt/sources.list
-...（按 i 之后将上文的源右键粘贴进去，编辑完后按 Esc，再输入 :wq 和回车）
 # apt update
 # apt upgrade -y
-# exit
-exit
-$ 
 ```
 
 ### 安装中文环境
@@ -396,7 +393,7 @@ Welcome!
 
 也可以直接使用诸如 `\\wsl$\Ubuntu\home\` 的路径访问其子文件夹．
 
-### 配合 Visual Sudio Code 进行编辑
+### 配合 Visual Studio Code 进行编辑
 
 如果习惯在 Windows 环境下使用 [Visual Studio Code](./editor/vscode.md) 进行代码编辑，可以安装 VS Code 中的 `Remote - WSL` 插件，更方便地对 WSL 系统中的文件进行编辑．
 
@@ -459,7 +456,7 @@ Welcome!
 ## 外部链接
 
 -   [关于适用于 Linux 的 Windows 子系统](https://docs.microsoft.com/zh-cn/windows/wsl/about)
--   [Ubuntu 镜像使用帮助，清华 TUNA](https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/)
+-   [Ubuntu 软件仓库 - MirrorZ Help](https://help.mirrorz.org/ubuntu/)
 -   [Dev on Windows with WSL（在 Windows 上用 WSL 优雅开发）](https://dowww.spencerwoo.com)
 -   [GitHub 上的 Awesome-WSL](https://github.com/sirredbeard/Awesome-WSL)
 -   [排查适用于 Linux 的 Windows 子系统问题](https://docs.microsoft.com/zh-cn/windows/wsl/troubleshooting)

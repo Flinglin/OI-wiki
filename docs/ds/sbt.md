@@ -2,12 +2,12 @@ Size Balanced Tree (SBT) 是由中国 OI 选手陈启峰在 2007 年提出的一
 
 ## 节点定义
 
-相比与普通二叉搜索树，SBT 的每个节点 $N$ 仅需要多维护一个整数字段 `size`, 用于储存以 $N$ 为根的子树中节点的个数．节点类型 `Node` 的具体定义如下：
+相比于普通二叉搜索树，SBT 的每个节点 $N$ 仅需要多维护一个整数字段 `size`, 用于储存以 $N$ 为根的子树中节点的个数．节点类型 `Node` 的具体定义如下：
 
-| Identifier | Type    | Description     |
-| ---------- | ------- | --------------- |
-| `left`     | `Node*` | 左子节点引用          |
-| `right`    | `Node*` | 右子节点引用          |
+| Identifier | Type    | Description                    |
+| ---------- | ------- | ------------------------------ |
+| `left`     | `Node*` | 左子节点引用                   |
+| `right`    | `Node*` | 右子节点引用                   |
 | `size`     | `int`   | 以该节点为根的子树中节点的个数 |
 
 ## 性质
@@ -276,7 +276,7 @@ bool remove(NodePtr& node, K key, NodeConsumer action) {
   } else {
     // Case 5: both left and right child, right child is not a leaf
     // clang-format off
-    //   Step 1. find the node N with the smallest key
+    //   Step 1. find the node S with the smallest key
     //           and its parent P on the right subtree
     //   Step 2. swap S and N
     //   Step 3. remove node N like Case 1 or Case 3

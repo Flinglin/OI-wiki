@@ -26,7 +26,7 @@ int crt_coeff(int m_i, int m) {
   return mm % m;
 }
 
-// Binominal Coefficient Calculator Modulo Prime Power.
+// Binomial Coefficient Calculator Modulo Prime Power.
 class BinomModPrimePower {
   int p, a, pa;
   std::vector<int> f;
@@ -64,6 +64,7 @@ class BinomModPrimePower {
 
   // Calculate Binom(n, k) mod pa.
   int binomial(long long n, long long k) {
+    if (k < 0 || k > n) return 0;
     long long v = nu(n) - nu(n - k) - nu(k);
     if (v >= a) return 0;
     auto res = fact_mod(n - k) * fact_mod(k) % pa;
@@ -73,7 +74,7 @@ class BinomModPrimePower {
   }
 };
 
-// Binominal Coefficient Calculator.
+// Binomial Coefficient Calculator.
 class BinomMod {
   int m;
   std::vector<BinomModPrimePower> bp;

@@ -35,7 +35,7 @@ author: GoodCoder666, Ir1d, Marcythm, ouuan, hsfzLZH1, Xeonacid, greyqz, Chrogee
 
 如图：
 
-![HLD](./images/hld.png)
+![HLD](./images/hld-1.svg)
 
 ## 实现
 
@@ -206,7 +206,7 @@ int lca(int u, int v) {
 
 对于路径修改和查询操作，由于树上两点之间的简单路径唯一，所以不会发生变化，与正常的处理方式相同．
 
-对于子树修改和查询操作，一般的思路就是将换根后的子树映射到原来的子树．这需要分类讨论操作子树的根结点、换根后的整个树的根结点，以及原来树的根结点的相对位置关系．具体细节详见 [后文例题](./hld.md#loj-139-树链剖分)．
+对于子树修改和查询操作，一般的思路就是将换根后的子树映射到原来的子树．这需要分类讨论操作子树的根结点、换根后的整个树的根结点，以及原来树的根结点的相对位置关系．具体细节详见 [后文例题「LOJ 139. 树链剖分」](#例题)．
 
 ## 例题
 
@@ -247,8 +247,6 @@ int lca(int u, int v) {
 
 然后是一道带换根操作的重链剖分模板题．
 
-<a id="loj-139-树链剖分"></a>
-
 ???+ example "[LOJ 139. 树链剖分](https://loj.ac/p/139)"
     给定一棵 $n$ 个结点的树（初始根结点为 $1$），要求支持如下的 $m$ 次操作：
     
@@ -277,7 +275,7 @@ int lca(int u, int v) {
         -   若 $\operatorname{dep}(\operatorname{top}(v))=\operatorname{dep}(u)+1$，令 $v\gets\operatorname{top}(v)$．此时，$v$ 是 $u$ 的一个轻儿子．
         -   若 $\operatorname{dep}(\operatorname{top}(v))<\operatorname{dep}(u)+1$，亦即 $\operatorname{dep}(\operatorname{top}(v))\le \operatorname{dep}(u)$，这说明 $u,v$ 处在同一条重链上．根据同一条重链上 DFS 序连续的性质，所求的 $v$ 必然满足 $\operatorname{dfn}(v)=\operatorname{dfn}(u)+1$．所以，可以令 $v\gets\operatorname{rnk}(\operatorname{dfn}(u)+1)$．
     
-        注意，这两种情形中可以合并：在跳完之后可以直接令
+        注意，这两种情形可以合并：在跳完之后可以直接令
     
         $$
         v\gets\operatorname{rnk}(\operatorname{dfn}(\operatorname{top}(v))+\operatorname{dep}(u)+1-\operatorname{dep}(\operatorname{top}(v))).
@@ -311,7 +309,7 @@ int lca(int u, int v) {
     
     假设我们需要在子树 $u$ 中找结点 $k$ 所在的位置，我们可以询问 $k$ 与 $u$ 所在重链的尾端的距离，就可以进一步确定 $k$ 的位置，具体见图：
     
-    ![](./images/hld2.png)
+    ![](./images/hld-2.svg)
     
     其中红色虚线是一条重链，$d$ 是询问的结果即 $\textit{dis}(k, \textit{bot}(u))$，$v$ 的深度为 $(\textit{dep}(k)+\textit{dep}(\textit{bot}(u))-d)/2$．
     
@@ -354,7 +352,7 @@ int lca(int u, int v) {
 
 如图（这种剖分方式既可以看成重链剖分也可以看成长链剖分）：
 
-![HLD](./images/hld.png)
+![HLD](./images/hld-1.svg)
 
 长链剖分实现方式和重链剖分类似，这里就不再展开．
 
@@ -403,7 +401,7 @@ int lca(int u, int v) {
     
     直接暴力转移时间复杂度为 $O(n^2)$
     
-    我们考虑每次转移我们直接继承重儿子的 DP 数组和答案，并且考虑在此基础上进行更新．
+    我们考虑每次转移直接继承重儿子的 DP 数组和答案，并且考虑在此基础上进行更新．
     
     首先我们需要将重儿子的 DP 数组前面插入一个元素 1, 这代表着当前结点．
     
@@ -438,9 +436,9 @@ DP 数组的长度我们可以根据子树最深结点算出．
 
 同时我们在预处理的时候找到每条重链的根结点的 $1$ 到 $d$ 级祖先，同样放入表格．
 
-根据长链剖分的性质，$k-2^i \le 2^i \leq d$, 也就是说，我们可以 $O(1)$ 在这条重链的表格上求出的这个结点的 $k$ 级祖先．
+根据长链剖分的性质，$k-2^i \le 2^i \leq d$, 也就是说，我们可以 $O(1)$ 在这条重链的表格上求出这个结点的 $k$ 级祖先．
 
-预处理需要倍增出 $2^i$ 次级祖先，同时需要预处理每条重链对应的表格．
+预处理需要倍增出 $2^i$ 级祖先，同时需要预处理每条重链对应的表格．
 
 预处理复杂度 $O(n\log n)$, 询问复杂度 $O(1)$．
 

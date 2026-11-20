@@ -68,7 +68,8 @@
 /math/eulerian /math/combinatorics/eulerian
 /math/notation /intro/symbol
 /math/prime /math/number-theory/prime
-/math/meissel-lehmer /math/number-theory/meissel-lehmer
+/math/meissel-lehmer /math/number-theory/prime-counting
+/math/number-theory/meissel-lehmer /math/number-theory/prime-counting
 /math/gcd /math/number-theory/gcd
 /math/euler /math/number-theory/euler-totient
 /math/number-theory/euler /math/number-theory/euler-totient
@@ -85,7 +86,8 @@
 /math/primitive-root /math/number-theory/primitive-root
 /math/lucas /math/number-theory/lucas
 /math/mobius /math/number-theory/mobius
-/math/du /math/number-theory/du
+/math/du /math/number-theory/hyperbola
+/math/number-theory/du /math/number-theory/hyperbola
 /math/powerful-number /math/number-theory/powerful-number
 /math/min-25 /math/number-theory/min-25
 /math/zhou /math/number-theory/zhou
@@ -120,6 +122,7 @@
 /math/fourier-motzkin-elimination /math/linear-programming
 /math/game-theory/misere-game /math/game-theory/impartial-game
 /misc/gray-code /math/numeral-sys/gray-code
+/geometry/misc /geometry
 /geometry/polar-coordinate/ /math/coordinate
 /graph/tree-misc /graph/tree-centroid
 /graph/bridge /graph/cut
@@ -147,3 +150,5 @@
 /dp/opt/monotonous-queue-stack /dp/opt/monotonic-queue-stack
 /graph/min-circle /graph/min-cycle
 /string/automaton /misc/fsm
+/dp/knapsack /dp/knapsack/basic
+/dp/misc /dp

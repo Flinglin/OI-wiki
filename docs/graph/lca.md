@@ -1,4 +1,4 @@
-author:ouuan, Backl1ght, billchenchina, CCXXXI, ChickenHu, ChungZH, cjsoft, countercurrent-time, diauweb, Early0v0, Enter-tainer, EtaoinWu, H-J-Granger, H-Shen, Henry-ZHR, HeRaNO, hsfzLZH1, huaruoji, iamtwz, imp2002, Ir1d, kenlig, Konano, Lyccrius, Marcythm, Menci, NachtgeistW, PeterlitsZo, psz2007, shuzhouliu, SkqLiao, sshwy, SukkaW, therehello, TrisolarisHD, ttzztztz, vincent-163, WAAutoMaton, Hunter19019
+author: ouuan, Backl1ght, billchenchina, CCXXXI, ChickenHu, ChungZH, cjsoft, countercurrent-time, diauweb, Early0v0, Enter-tainer, EtaoinWu, H-J-Granger, H-Shen, Henry-ZHR, HeRaNO, hsfzLZH1, huaruoji, iamtwz, imp2002, Ir1d, kenlig, Konano, Lyccrius, Marcythm, Menci, NachtgeistW, PeterlitsZo, psz2007, shuzhouliu, SkqLiao, sshwy, SukkaW, therehello, TrisolarisHD, ttzztztz, vincent-163, WAAutoMaton, Hunter19019
 
 ## 定义
 
@@ -24,7 +24,7 @@ author:ouuan, Backl1ght, billchenchina, CCXXXI, ChickenHu, ChungZH, cjsoft, coun
 #### 过程
 
 可以每次找深度比较大的那个点，让它向上跳．显然在树上，这两个点最后一定会相遇，相遇的位置就是想要求的 LCA．
-或者先向上调整深度较大的点，令他们深度相同，然后再共同向上跳转，最后也一定会相遇．
+或者先向上调整深度较大的点，令它们深度相同，然后再共同向上跳转，最后也一定会相遇．
 
 #### 性质
 
@@ -34,7 +34,7 @@ author:ouuan, Backl1ght, billchenchina, CCXXXI, ChickenHu, ChungZH, cjsoft, coun
 
 #### 过程
 
-倍增算法是最经典的 LCA 求法，他是朴素算法的改进算法．通过预处理 $\text{fa}_{x,i}$ 数组，游标可以快速移动，大幅减少了游标跳转次数．$\text{fa}_{x,i}$ 表示点 $x$ 的第 $2^i$ 个祖先．$\text{fa}_{x,i}$ 数组可以通过 dfs 预处理出来．
+倍增算法是最经典的 LCA 求法，它是朴素算法的改进算法．通过预处理 $\text{fa}_{x,i}$ 数组，游标可以快速移动，大幅减少了游标跳转次数．$\text{fa}_{x,i}$ 表示点 $x$ 的第 $2^i$ 个祖先．$\text{fa}_{x,i}$ 数组可以通过 dfs 预处理出来．
 
 现在我们看看如何优化这些跳转：
 在调整游标的第一阶段中，我们要将 $u,v$ 两点跳转到同一深度．我们可以计算出 $u,v$ 两点的深度之差，设其为 $y$．通过将 $y$ 进行二进制拆分，我们将 $y$ 次游标跳转优化为「$y$ 的二进制表示所含 `1` 的个数」次游标跳转．
@@ -62,9 +62,9 @@ author:ouuan, Backl1ght, billchenchina, CCXXXI, ChickenHu, ChungZH, cjsoft, coun
 Tarjan 算法是一种 **离线算法**，需要使用 [并查集](../ds/dsu.md) 记录某个结点的祖先结点．做法如下：
 
 1.  首先接受输入边（邻接链表）、查询边（存储在另一个邻接链表内）．查询边其实是虚拟加上去的边，为了方便，每次输入查询边的时候，将这个边及其反向边都加入到 `queryEdge` 数组里．
-2.  然后对其进行一次 DFS 遍历，同时使用 `visited` 数组进行记录某个结点是否被访问过、`parent` 记录当前结点的父亲结点．
-3.  其中涉及到了 **回溯思想**，我们每次遍历到某个结点的时候，认为这个结点的根结点就是它本身．让以这个结点为根节点的 DFS 全部遍历完毕了以后，再将这个结点的根节点设置为这个结点的父一级结点．
-4.  回溯的时候，如果以该节点为起点，`queryEdge` 查询边的另一个结点也恰好访问过了，则直接更新查询边的 LCA 结果．
+2.  然后对其进行一次 DFS 遍历，同时使用 `visited` 数组记录某个结点是否被访问过．
+3.  其中涉及到了 **回溯思想**，我们每次遍历到某个结点的时候，为它新建一个只包含它自身的集合．以它的某个子结点为根的 DFS 全部遍历完毕了以后，将这个子结点所在的集合并入当前结点所在的集合，并用 `ancestor` 记录合并后的集合中深度最小的结点，也就是当前结点．
+4.  回溯的时候，如果以该节点为起点，`queryEdge` 查询边的另一个结点也恰好访问过了，那么另一个结点所在集合的 `ancestor` 就是两点的 LCA，直接更新查询边的 LCA 结果．
 5.  最后输出结果．
 
 #### 性质
@@ -141,9 +141,26 @@ Tarjan 算法需要初始化并查集，所以预处理的时间复杂度为 $O(
     }
     ```
 
-当我们需要查询某点对 $(u, v)$ 的 LCA 时，查询区间 $[\min\{pos[u], pos[v]\}, \max\{pos[u], pos[v]\}]$ 上最小值的所代表的节点即可．
+当我们需要查询某点对 $(u, v)$ 的 LCA 时，查询区间 $[\min\{pos[u], pos[v]\}, \max\{pos[u], pos[v]\}]$ 上最小值所代表的节点即可．
 
 若使用 ST 表来解决 RMQ 问题，那么该算法不支持在线修改，预处理的时间复杂度为 $O(n\log n)$，每次查询 LCA 的时间复杂度为 $O(1)$．
+
+### 利用 DFS 序转化为 RMQ 问题
+
+欧拉序列的长度是 $2n-1$，时空常数略大．实际上，可以直接利用 DFS 时间戳 $\operatorname{dfn}$ 求 LCA．
+
+考虑点对 $(u,v)$ 的 LCA，记 $d=\operatorname{LCA}(u,v)$．若 $u=v$，则 $d=u$，需要特判．否则不妨设 $\operatorname{dfn}(u) < \operatorname{dfn}(v)$，此时，$v$ 一定不是 $u$ 的祖先结点．和欧拉序列不同，在 DFS 序中，区间 $(\operatorname{dfn}(u), \operatorname{dfn}(v)]$ 内不会出现 $d$．但是，它一定包含位于自 $d$ 到 $v$ 的路径上 $d$ 的那个子结点．无论 $u$ 是不是 $v$ 的祖先结点，这一点总是成立的．所以，只要找到区间 $[\operatorname{dfn}(u) + 1, \operatorname{dfn}(v)]$ 中深度最小的那个结点（未必唯一），它的父结点一定是 LCA．其中，区间开始是 $\operatorname{dfn}(u) + 1$ 的原因是：若 $u$ 是 $v$ 的祖先，区间包含 $u$ 时深度最小的结点将是 $u$ 本身，而它的父结点并非 LCA．
+
+由此，求 LCA 就又变成了一个 RMQ 问题．
+
+如果不想存储额外的深度和父结点信息，可以直接在 DFS 序中 $\operatorname{dfn}(u)$ 位置处存储 $\operatorname{fa}(u)$．然后，在这个序列上，利用时间戳比较两个值．那么，区间 $[\operatorname{dfn}(u) + 1, \operatorname{dfn}(v)]$ 中该序列时间戳最小的就是 $\operatorname{LCA}(u,v)$．这是因为，区间 $[\operatorname{dfn}(u) + 1, \operatorname{dfn}(v)]$ 中结点一定是 $d$ 的真子孙结点，这些结点父结点的 DFS 时间戳不会小于 $\operatorname{dfn}(d)$；而在区间内 $d$ 的子结点处恰取得最小值 $\operatorname{dfn}(d)$，按照前文讨论，这样的子结点一定存在．
+
+利用 DFS 序将 LCA 转化为 RMQ 问题的过程是 $O(n)$ 的，总复杂度取决于所用的 RMQ 方法．利用 ST 表 $O(n\log n)$ 预处理、$O(1)$ 查询的参考实现如下：
+
+??? example "参考实现"
+    ```cpp
+    --8<-- "docs/graph/code/lca/lca-dfs.cpp:lca"
+    ```
 
 ### 树链剖分
 
@@ -161,7 +178,7 @@ LCA 为两个游标跳转到同一条重链上时深度较小的那个游标所�
 
 前面讲到了借助欧拉序将 LCA 问题转化为 RMQ 问题，其瓶颈在于 RMQ．如果能做到 $O(n) \sim O(1)$ 求解 RMQ，那么也就能做到 $O(n) \sim O(1)$ 求解 LCA．
 
-注意到欧拉序满足相邻两数之差为 1 或者 -1，所以可以使用 $O(n) \sim O(1)$ 的 [加减 1RMQ](../topic/rmq.md#加减-1rmq) 来做．
+注意到欧拉序满足相邻两数之差为 1 或者 -1，所以可以使用 $O(n) \sim O(1)$ 的 [加减 1 RMQ](../topic/rmq.md#加减-1-rmq) 来做．
 
 时间复杂度 $O(n) \sim O(1)$，空间复杂度 $O(n)$，支持在线查询，常数较大．
 
@@ -177,3 +194,7 @@ LCA 为两个游标跳转到同一条重链上时深度较小的那个游标所�
 -   [祖孙询问](https://loj.ac/problem/10135)
 -   [货车运输](https://loj.ac/problem/2610)
 -   [点的距离](https://loj.ac/problem/10130)
+
+## 参考资料
+
+-   [冷门科技——DFS 序求 LCA by Alex\_Wei - 洛谷](https://www.luogu.com.cn/article/pu52m9ue)

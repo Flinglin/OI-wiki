@@ -59,8 +59,8 @@ $$
             n = n * r[i]
         for i in range(1, k + 1):
             m = n // r[i]
-            b = y = 0
-            exgcd(m, r[i], b, y)  # b * m mod r[i] = 1
+            # Exgcd 见扩展欧几里得算法页面，返回 (gcd, x, y)
+            _, b, _ = Exgcd(m, r[i])  # b * m mod r[i] = 1
             ans = (ans + a[i] * m * b % n) % n
         return (ans % n + n) % n
     ```
@@ -148,7 +148,7 @@ $$
 类似地，我们可以得到：
 
 $$
-x_k=(\dots((a_k-x_1)r_{1,k}-x_2)r_{2,k})-\dots)r_{k-1,k} \bmod p_k
+x_k=(\dots((a_k-x_1)r_{1,k}-x_2)r_{2,k}-\dots)r_{k-1,k} \bmod p_k
 $$
 
 ??? note "实现"

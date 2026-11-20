@@ -64,7 +64,7 @@ Code Runner 是一个可以一键运行代码的扩展，在工程上一般用�
 ???+ warning "Warning"
     配置名称并非固定，而是可以自定义的．不同的操作系统可能具有不同的配置名称．
 
-完成后，VS Code 将自动完成初始化操作在下方的集成终端中启动调试．至此，GDB 所有的配置流程已经完毕．
+完成后，VS Code 将自动完成初始化操作，并在下方的集成终端中启动调试．至此，GDB 所有的配置流程已经完毕．
 
 #### LLDB
 
@@ -152,19 +152,19 @@ VS Code 的 C/C++ 扩展也有自动补全等功能，但在提示信息的易�
 
 部分快捷键：
 
-| 按键                                                            | 操作                        |
-| ------------------------------------------------------------- | ------------------------- |
-| <kbd>Ctrl</kbd>+<kbd>C</kbd>/<kbd>X</kbd>                     | 复制/剪切当前行（当没有选择内容时）        |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>                 | 删除当前行                     |
-| <kbd>Alt</kbd>+<kbd>Up</kbd>/<kbd>Down</kbd>                  | 行上移/下移                    |
-| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Up</kbd>/<kbd>Down</kbd> | 行向上/向下复制                  |
-| <kbd>Ctrl</kbd>+<kbd>/</kbd>                                  | 切换行注释                     |
-| <kbd>Ctrl</kbd>+<kbd>\[</kbd>/<kbd>]</kbd>                    | 行向左/右缩进                   |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\[</kbd>/<kbd>]</kbd>   | 行折叠/展开                    |
-| <kbd>Ctrl</kbd>+<kbd>P</kbd>                                  | 打开最近打开的文件                 |
-| <kbd>Alt</kbd>+<kbd>Z</kbd>                                   | 切换自动折行                    |
-| <kbd>Alt</kbd>+<kbd>F12</kbd>                                 | 速览定义（如函数的定义）              |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\\</kbd>                | 跳转到匹配括号                   |
+| 按键                                                          | 操作                                               |
+| ------------------------------------------------------------- | -------------------------------------------------- |
+| <kbd>Ctrl</kbd>+<kbd>C</kbd>/<kbd>X</kbd>                     | 复制/剪切当前行（当没有选择内容时）                |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>                 | 删除当前行                                         |
+| <kbd>Alt</kbd>+<kbd>Up</kbd>/<kbd>Down</kbd>                  | 行上移/下移                                        |
+| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>Up</kbd>/<kbd>Down</kbd> | 行向上/向下复制                                    |
+| <kbd>Ctrl</kbd>+<kbd>/</kbd>                                  | 切换行注释                                         |
+| <kbd>Ctrl</kbd>+<kbd>\[</kbd>/<kbd>]</kbd>                    | 行向左/右缩进                                      |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\[</kbd>/<kbd>]</kbd>   | 行折叠/展开                                        |
+| <kbd>Ctrl</kbd>+<kbd>P</kbd>                                  | 打开最近打开的文件                                 |
+| <kbd>Alt</kbd>+<kbd>Z</kbd>                                   | 切换自动折行                                       |
+| <kbd>Alt</kbd>+<kbd>F12</kbd>                                 | 速览定义（如函数的定义）                           |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\\</kbd>                | 跳转到匹配括号                                     |
 | <kbd>Ctrl</kbd>+<kbd>T</kbd>                                  | 在工作区中查找符号（在文件夹中查找指定名称函数等） |
 
 ### 多光标
@@ -177,7 +177,7 @@ VS Code 的 C/C++ 扩展也有自动补全等功能，但在提示信息的易�
 
 ![](images/vscode-13.gif)
 
-注意此时在右上角会有一个工具栏，可在其中开启查找匹配项时是否开启大小写匹配、全字匹配等．
+注意此时在右上角会有一个工具栏，可在其中设置查找匹配项时是否开启大小写匹配、全字匹配等．
 
 ## 参考资料与注释
 

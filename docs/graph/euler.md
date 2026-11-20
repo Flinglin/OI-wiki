@@ -34,7 +34,7 @@
 以上的性质同时也构成了欧拉图的判断条件．具体地说，一个图是欧拉图当且仅当非零度顶点互相（强）连通，且顶点的度数都是偶数（或入度与出度相等）．
 
 对于半欧拉图，其性质与欧拉图相似：一个半欧拉图具有恰好两个奇度数的顶点，且这两个顶点就是欧拉路径的两个端点．通过将这两个点连接起来，可以将半欧拉图转化为欧拉图．通过删除欧拉图中的任意一条边，可以得到一个半欧拉图．
-由此可以导出半欧拉图的判别法：一个图是半欧拉图当且仅当非零度顶点互相（强）连通，且奇度数顶点恰好有两个．对于有向图，第二个条件为恰存在两个顶点 $u, v$，其中 $\deg^+(u) - \deg^-(u) = 1, \deg^+(v) - \deg^-(v) = -1$，且其余顶点的入度等于出度．
+由此可以导出半欧拉图的判别法：一个图是半欧拉图当且仅当非零度顶点（弱）连通，且奇度数顶点恰好有两个．对于有向图，第二个条件为恰存在两个顶点 $u, v$，其中 $\deg^+(u) - \deg^-(u) = 1, \deg^+(v) - \deg^-(v) = -1$，且其余顶点的入度等于出度．
 
 ## 欧拉回路/欧拉路径的构造
 
@@ -52,10 +52,10 @@ Hierholzer 算法的伪代码如下：
 $$
 \begin{array}{ll}
 1 &  \textbf{Input. } \text{The edges of the graph } e , \text{ where each element in } e \text{ is } (u, v) \\
-2 &  \textbf{Output. } \text{The vertex of the Euler Road of the input graph}.\\
+2 &  \textbf{Output. } \text{The vertices of the Euler Road of the input graph}.\\
 3 &  \textbf{Method. } \\
 4 &  \textbf{Function } \text{Hierholzer } (v) \\
-5 &  \qquad circle \gets \text{Find a Circle in } e \text{ Begin with } v \\
+5 &  \qquad circle \gets \text{Find a Circle in } e \text{ beginning with } v \\
 6 &  \qquad \textbf{if } circle=\varnothing \\
 7 &  \qquad\qquad \textbf{return } v \\
 8 &  \qquad e \gets e-circle \\
@@ -83,7 +83,7 @@ Hierholzer 算法的时间复杂度为 $O(|E| + |V|)$．
 
 有向欧拉图可用于计算机译码．
 
-设有 $m$ 个字母，希望构造一个有 $m^n$ 个扇形的圆盘，每个圆盘上放一个字母，使得圆盘上每连续 $n$ 位对应长为 $n$ 的符号串．转动一周（$m^n$ 次）后得到由 $m$ 个字母产生的长度为 $n$ 的 $m^n$ 个各不相同的符号串．
+设有 $m$ 个字母，希望构造一个有 $m^n$ 个扇形的圆盘，每个扇形上放一个字母，使得圆盘上每连续 $n$ 位对应长为 $n$ 的符号串．转动一周（$m^n$ 次）后得到由 $m$ 个字母产生的长度为 $n$ 的 $m^n$ 个各不相同的符号串．
 
 ![](images/euler1.svg)
 
@@ -93,13 +93,13 @@ Hierholzer 算法的时间复杂度为 $O(|E| + |V|)$．
 
 $V = \{a_{i_1}a_{i_2}\cdots a_{i_{n-1}} |a_i \in S, 1 \leq i \leq n - 1 \}$
 
-$E = \{a_{j_1}a_{j_2}\cdots a_{j_{n-1}}|a_j \in S, 1 \leq j \leq n\}$
+$E = \{a_{j_1}a_{j_2}\cdots a_{j_n}|a_j \in S, 1 \leq j \leq n\}$
 
 规定 $D$ 中顶点与边的关联关系如下：
 
 顶点 $a_{i_1}a_{i_2}\cdots a_{i_{n-1}}$ 引出 $m$ 条边：$a_{i_1}a_{i_2}\cdots a_{i_{n-1}}a_r, r=1, 2, \cdots, m$．
 
-边 $a_{j_1}a_{j_2}\cdots a_{j_{n-1}}$ 引入顶点 $a_{j_2}a_{j_3}\cdots a_{j_{n}}$．
+边 $a_{j_1}a_{j_2}\cdots a_{j_n}$ 引入顶点 $a_{j_2}a_{j_3}\cdots a_{j_{n}}$．
 
 ![](images/euler2.svg)
 

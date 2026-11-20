@@ -54,7 +54,7 @@ $G = \{0, 0, \dots, 0, \frac{\Delta_i}{\Delta_k}, -\frac{\Delta_i}{\Delta_k}F_{k
 ??? note "参考实现"
     ```cpp
     vector<int> berlekamp_massey(const vector<int> &a) {
-      vector<int> v, last;  // v is the answer, 0-based, p is the module
+      vector<int> v, last;  // v is the answer, 0-based, p is the modulus
       int k = -1, delta = 0;
     
       for (int i = 0; i < (int)a.size(); i++) {
@@ -139,15 +139,15 @@ $G = \{0, 0, \dots, 0, \frac{\Delta_i}{\Delta_k}, -\frac{\Delta_i}{\Delta_k}F_{k
 
 #### 求稀疏矩阵的秩
 
-设 $A$ 是一个 $n\times m$ 的矩阵，首先随机一个 $n\times n$ 的对角阵 $P$ 和一个 $m\times m$ 的对角阵 $Q$, 然后计算 $Q A P A^T Q$ 的最小多项式即可．
+设 $A$ 是一个 $n\times m$ 的矩阵，首先随机一个 $n\times n$ 的对角阵 $P$ 和一个 $m\times m$ 的对角阵 $Q$, 然后计算 $P A Q A^T P$ 的最小多项式即可．
 
-实际上不用调用矩阵乘法，因为求最小多项式时要用 $Q A P A^T Q$ 乘一个向量，所以我们依次把这几个矩阵乘到向量里就行了．答案就是最小多项式除掉所有 $x$ 因子后剩下的次数．
+实际上不用调用矩阵乘法，因为求最小多项式时要用 $P A Q A^T P$ 乘一个向量，所以我们依次把这几个矩阵乘到向量里就行了．答案就是最小多项式除掉所有 $x$ 因子后剩下的次数．
 
 设 $A$ 有 $k$ 个非零项，且 $n \le m$，则复杂度为 $O(kn + n ^ 2)$．
 
 #### 解稀疏方程组
 
-**问题**：已知 $A \mathbf x = \mathbf b$, 其中 $A$ 是一个 $n \times n$ 的 **满秩** 稀疏矩阵，$\mathbf b$ 和 $\mathbf x$ 是 $1\times n$ 的列向量．$A, \mathbf b$ 已知，需要在低于 $n^\omega$ 的复杂度内解出 $x$．
+**问题**：已知 $A \mathbf x = \mathbf b$, 其中 $A$ 是一个 $n \times n$ 的 **满秩** 稀疏矩阵，$\mathbf b$ 和 $\mathbf x$ 是 $n\times 1$ 的列向量．$A, \mathbf b$ 已知，需要在低于 $n^\omega$ 的复杂度内解出 $x$．
 
 **做法**：显然 $\mathbf x = A^{-1} \mathbf b$．如果我们能求出 $\{A^i \mathbf b\}$($i \ge 0$) 的最小递推式 $\{r_0 \dots r_{m - 1}\}$($m \le n$), 那么就有结论
 

@@ -133,7 +133,7 @@ A：推荐在 hosts 文件中加入如下几行[^ref1]：
 
 可以在 [GitHub520](https://gitee.com/klmahuaw/GitHub520) 上了解到最新内容和更多信息．
 
-Linux 和 macOS 用户可以尝试使用 [依云](https://github.com/lilydjwg/) 的 [gh-check 脚本](https://gist.github.com/lilydjwg/93d33ed04547e1b9f7a86b64ef2ed058) 获取访问最快的 IP，使用 `--hosts` 参数可以直接更新 hosts 文件．使用 `--help` 参数可以获取使用帮助．使用先需要安装 Python3 和 aiohttp（`pip install aiohttp -i https://pypi.tuna.tsinghua.edu.cn/simple/`）．依云博客的介绍：[寻找最快的 GitHub IP](https://blog.lilydjwg.me/2019/8/16/gh-check.214730.html)．
+Linux 和 macOS 用户可以尝试使用 [依云](https://github.com/lilydjwg/) 的 [gh-check 脚本](https://gist.github.com/lilydjwg/93d33ed04547e1b9f7a86b64ef2ed058) 获取访问最快的 IP，使用 `--hosts` 参数可以直接更新 hosts 文件．使用 `--help` 参数可以获取使用帮助．使用前需要安装 Python3 和 aiohttp（`pip install aiohttp -i https://pypi.tuna.tsinghua.edu.cn/simple/`）．依云博客的介绍：[寻找最快的 GitHub IP](https://blog.lilydjwg.me/2019/8/16/gh-check.214730.html)．
 
 同时，您可以使用 [Gitclone](https://www.gitclone.com/) 服务加速 Clone，可以阅读其首页上的说明．
 
@@ -220,7 +220,7 @@ Q：为什么我的 markdown 格式乱了？
 
 A：可以查阅 [cyent 的笔记](https://web.archive.org/web/20221103014610/https://cyent.github.io/markdown-with-mkdocs-material/)，或者 [MkDocs 使用说明](https://github.com/ctf-wiki/ctf-wiki/wiki/Mkdocs-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)．
 
-我们目前使用 [remark-lint](https://github.com/remarkjs/remark-lint) 来自动化修正格式，可能还有一些 [配置](https://github.com/OI-wiki/OI-wiki/blob/master/.remarkrc) 不够好的地方，欢迎指出．
+我们目前使用 [remark-lint](https://github.com/remarkjs/remark-lint) 来自动化修正格式，可能还有一些 [配置](https://github.com/OI-wiki/OI-wiki/blob/master/.remarkrc.js) 不够好的地方，欢迎指出．
 
 ***
 

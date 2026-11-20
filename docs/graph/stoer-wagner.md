@@ -10,7 +10,7 @@ author: DanJoshua, opsiff, yzy-1, yingqi-z20
 
 去掉其中所有边能使一张网络流图不再连通（即分成两个子图）的边集称为图的割．
 
-即：在无向图 $G = (V, E)$ 中，设 $C$ 为图 $G$ 中一些弧的集合，若从 $G$ 中删去 $C$ 中的所有弧能使图 $G$ 不是连通图，称 $C$ 图 $G$ 的一个割．
+即：在无向图 $G = (V, E)$ 中，设 $C$ 为图 $G$ 中一些弧的集合，若从 $G$ 中删去 $C$ 中的所有弧能使图 $G$ 不是连通图，称 $C$ 为图 $G$ 的一个割．
 
 ### 有源汇点的最小割问题
 
@@ -38,7 +38,7 @@ Stoer–Wagner 算法在 1995 年由*Mechthild Stoer*与*Frank Wagner*提出，�
 
 ### 过程
 
-1.  在图 $G$ 中任意指定两点 $s, t$，并且以这两点作为源汇点求出图 $G$ 的 $S-T$ 最小割（定义为*cut of phase*），更新当前答案．
+1.  在图 $G$ 中任意指定两点 $s, t$，并且以这两点作为源汇点求出图 $G$ 的 $s-t$ 最小割（定义为*cut of phase*），更新当前答案．
 2.  「合并」点 $s, t$，如果图 $G$ 中 $|V|$ 大于 $1$，则回到第一步．
 3.  输出所有*cut of phase*的最小值．
 
@@ -46,7 +46,7 @@ Stoer–Wagner 算法在 1995 年由*Mechthild Stoer*与*Frank Wagner*提出，�
 
 解释：如果 $s, t$ 在同一连通块，对于 $G \setminus \{s, t\}$ 中的一点 $k$，假如 $(k, s) \in C_{\min}$，那么 $(k, t) \in C_{\min}$ 也一定成立，否则因为 $s, t$ 连通，$k, t$ 连通，导致 $s, k$ 在同一连通块，此时 $C = C_{\min} \setminus \{(t, k)\}$ 将比 $C_{\min}$ 更优．反之亦然．所以 $s, t$ 可以看作同一点．
 
-步骤 1 考虑了 $s,t$ 不在同一连通块的情形，步骤 2 考虑了剩余的情况．由于每次执行步骤 2 都会使 $|V|$ 减小 $1$，因此算法将在进行 $|V| - 1$ 后结束．
+步骤 1 考虑了 $s,t$ 不在同一连通块的情形，步骤 2 考虑了剩余的情况．由于每次执行步骤 2 都会使 $|V|$ 减小 $1$，因此算法将在进行 $|V| - 1$ 次后结束．
 
 ### S-T 最小割的求法
 
@@ -64,15 +64,15 @@ $w(A, i) = \sum_{j \in A} d(i, j)$
 
 （若 $(i, j) \notin E'$，则 $d(i, j) = 0$）．
 
-容易知道所有点加入 $A$ 的顺序是固定的，令 $\operatorname{ord}(i)$ 表示第 $i$ 个加入 $A$ 的点，$t = \operatorname{ord}(|V'|)$；$\operatorname{pos}(v)$ 表示 $v$ 被加入 $A$ 后 $|A|$ 的大小，即 $v$ 被加入的顺序．
+容易知道所有点加入 $A$ 的顺序是固定的，令 $\operatorname{ord}(i)$ 表示第 $i$ 个加入 $A$ 的点，$t = \operatorname{ord}(|V'|)$，$s = \operatorname{ord}(|V'|-1)$；$\operatorname{pos}(v)$ 表示 $v$ 被加入 $A$ 后 $|A|$ 的大小，即 $v$ 被加入的顺序．
 
-则对任意点 $s$，一个 $s$ 到 $t$ 的割即为 $w(t)$．
+则 $s$ 到 $t$ 的最小割即为 $t$ 加入 $A$ 时的 $w(A, t)$．
 
 ### 证明
 
-定义一个点 $v$ 被激活，当且仅当 $v$ 在加入 $A$ 中时，发现在 $A$ 此时最后一个点 $u$ 早于 $v$ 加入集合，并且在图 $G'' = (V', E'/C)$ 中，$u$ 与 $v$ 不在同一连通块．
+定义一个点 $v$ 被激活，当且仅当 $v$ 在加入 $A$ 中时，发现在 $A$ 此时最后一个点 $u$ 早于 $v$ 加入集合，并且在图 $G'' = (V', E'\setminus C)$ 中，$u$ 与 $v$ 不在同一连通块．
 
-![Stoer-Wagner1](./images/Stoer-Wagner1.png)
+![Stoer-Wagner1](./images/stoer-wagner-1.svg)
 
 如图，蓝色区域和黄色区域为两个不同的连通块，方括号中的数字为加入 $A$ 的顺序．灰色节点为活跃节点，白色节点则不是活跃节点．
 
@@ -103,7 +103,7 @@ $w(A, i) = \sum_{j \in A} d(i, j)$
     
     由归纳法得证．
 
-由于 $\operatorname{pos}(s) < \operatorname{pos}(t)$，并且 $s, t$ 不在同一连通块，因此 $t$ 会被激活，由此可以得出 $w(A_t, t) \le w(C_t) = w(C)$．
+由于 $\operatorname{pos}(s) = \operatorname{pos}(t)-1$，并且 $s, t$ 不在同一连通块，因此 $t$ 会被激活，由此可以得出 $w(A_t, t) \le w(C_t) = w(C)$．
 
 ??? note "[P5632【模板】Stoer–Wagner 算法](https://www.luogu.com.cn/problem/P5632)"
     ```cpp

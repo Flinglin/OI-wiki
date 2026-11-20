@@ -1,6 +1,6 @@
 author: c-forrest, Enter-tainer, giiiiiithub, hly1204, iamtwz, Ir1d, kigawas, ksyx, luxuryspark567, mgt, orzAtalod, sandyzikun, SunsetGlow95, Tiphereth-A, current2020, untitledunrevised, yuhuoji
 
-左偏红黑树是 [红黑树](./rbtree.md) 的一种变体，它的对红边（点）的位置做了一定限制，使得其插入与删除操作可以与 [2-3 树](https://en.wikipedia.org/wiki/2%E2%80%933_tree) 构成一一对应．
+左偏红黑树是 [红黑树](./rbtree.md) 的一种变体，它对红边（点）的位置做了一定限制，使得其插入与删除操作可以与 [2-3 树](https://en.wikipedia.org/wiki/2%E2%80%933_tree) 构成一一对应．
 
 我们假设读者已经至少掌握了一种基于旋转的平衡树，因此本文不会对旋转操作进行讲解．
 
@@ -34,13 +34,13 @@ author: c-forrest, Enter-tainer, giiiiiithub, hly1204, iamtwz, Ir1d, kigawas, ks
 
 符合条件的情况：
 
-![llrbt1](./images/llrbt-1.png)
+![llrbt1](./images/llrbt-1.svg)
 
 不符合条件的情况：
 
-![llrbt2](./images/llrbt-2.png)
+![llrbt2](./images/llrbt-2.svg)
 
-这是左偏树的「左偏」性质：红色边只能是左偏的．
+这是左偏红黑树的「左偏」性质：红色边只能是左偏的．
 
 ### 过程
 
@@ -48,19 +48,19 @@ author: c-forrest, Enter-tainer, giiiiiithub, hly1204, iamtwz, Ir1d, kigawas, ks
 
 我们首先使用普通的 BST 插入方法，在树的底部插入一个红色的叶子节点，然后通过从下向上的调整，使得插入后的树仍然符合左偏红黑树的性质．下面描述调整的过程：
 
-![llrbt3](./images/llrbt-3.png)
+![llrbt3](./images/llrbt-3.svg)
 
 插入后，可能会产生一条右偏的红色边，因此需要对红边右偏的情况进行一次左旋：
 
-![llrbt4](./images/llrbt-4.png)
+![llrbt4](./images/llrbt-4.svg)
 
 考虑左旋后会产生两条连续的左偏红色边：
 
-![llrbt5](./images/llrbt-5.png)
+![llrbt5](./images/llrbt-5.svg)
 
 因此需要把它进行一次右旋．而对于右旋后的情况，我们应该对它进行 `color_flip`：即翻转该节点和它的两个儿子的颜色
 
-![llrbt6](./images/llrbt-6.png)
+![llrbt6](./images/llrbt-6.svg)
 
 从而消灭右偏的红边．
 
@@ -83,12 +83,12 @@ author: c-forrest, Enter-tainer, giiiiiithub, hly1204, iamtwz, Ir1d, kigawas, ks
     }
     
     template <class Key, class Compare>
-    typename Set<Key, Compare>::Node_Set<Key, Compare>::insert(
-        Set::Node_root, const Key &key) const {
+    typename Set<Key, Compare>::Node *Set<Key, Compare>::insert(
+        Set::Node *root, const Key &key) const {
       if (root == nullptr) return new Node(key, kRed, 1);
       if (root->key == key)
         ;
-      else if (cmp\_(key, root->key))  // if (key < root->key)
+      else if (cmp_(key, root->key))  // if (key < root->key)
         root->lc = insert(root->lc, key);
       else
         root->rc = insert(root->rc, key);
@@ -106,19 +106,19 @@ author: c-forrest, Enter-tainer, giiiiiithub, hly1204, iamtwz, Ir1d, kigawas, ks
 
 怎么才能保证最后删除的节点是红色的呢？我们需要在向下递归的过程中保证一个性质：如果当前节点是 `h`，那么需要保证 `h` 是红色，或者 `h->lc` 是红色．
 
-考虑这样做的正确性，如果我们能够通过各种旋转和反转颜色操作成功维护这个性质，那么当我们到达最小的节点 `h_min` 的时候，有 `h_min` 是红色，或者 `h_min` 的左子树——但是 `h_min` 根本没有左子树！所以这就保证了最小值节点一定是红的，既然它是红色的，我们就可以大胆的删除它，然后用与插入操作相同的调整思路对树进行调整．
+考虑这样做的正确性，如果我们能够通过各种旋转和反转颜色操作成功维护这个性质，那么当我们到达最小的节点 `h_min` 的时候，有 `h_min` 是红色，或者 `h_min` 的左子树是红色——但是 `h_min` 根本没有左子树！所以这就保证了最小值节点一定是红的，既然它是红色的，我们就可以大胆地删除它，然后用与插入操作相同的调整思路对树进行调整．
 
 下面我们来考虑怎么满足这个性质，注意，我们会在向下递归的时候 **临时地** 破坏左偏红黑树的若干性质，但是当我们从递归中返回时还会将其恢复．
 
 如下图所描述的，是一种较为简单的情况，此时 `h->rc->lc` 为黑色，我们只需要一次翻转颜色即可：
 
-![llrbt-7](./images/llrbt-7.png)
+![llrbt-7](./images/llrbt-7.svg)
 
 并且，在如上所示的翻转之后，不会使 `h->rc` 与 `h->rc->lc` 形成连续的红边；
 
 但如果 `h->rc->lc` 是红色，情况会比较复杂：
 
-![llrbt-8](./images/llrbt-8.png)
+![llrbt-8](./images/llrbt-8.svg)
 
 如果只进行翻转颜色，会产生连续的红边，而考虑我们递归返回的时候，是无法修复这样的情况的，因此需要进行处理．
 
@@ -162,7 +162,7 @@ author: c-forrest, Enter-tainer, giiiiiithub, hly1204, iamtwz, Ir1d, kigawas, ks
 
 下面考虑删除非叶子节点，我们只需要找到其右子树（如果有）里的最小节点，然后用右子树的最小节点的值代替该节点的值，最后删除右子树里的最小节点．
 
-![llrbt-9](./images/llrbt-9.png)
+![llrbt-9](./images/llrbt-9.svg)
 
 那如果没有右子树怎么办？我们需要把左子树旋转过来，这样就不会出现这个问题了．
 
@@ -176,7 +176,7 @@ author: c-forrest, Enter-tainer, giiiiiithub, hly1204, iamtwz, Ir1d, kigawas, ks
         if (!is_red(root->lc) && !(is_red(root->lc->lc)))
           root = move_red_left(root);
         // ensure the invariant: either root->lc or root->lc->lc (or root and
-        // root->lc after dive into the function) is red, to ensure we will
+        // root->lc after diving into the function) is red, to ensure we will
         // eventually delete a red node. therefore we will not break the black
         // height balance
         root->lc = delete_arbitrary(root->lc, key);
@@ -206,7 +206,9 @@ author: c-forrest, Enter-tainer, giiiiiithub, hly1204, iamtwz, Ir1d, kigawas, ks
 ??? note "参考代码"
     ```cpp
     #include <algorithm>
+    #include <iostream>
     #include <memory>
+    #include <string>
     #include <vector>
     
     template <class Key, class Compare = std::less<Key>>
@@ -465,7 +467,7 @@ author: c-forrest, Enter-tainer, giiiiiithub, hly1204, iamtwz, Ir1d, kigawas, ks
         if (!is_red(root->lc) && !(is_red(root->lc->lc)))
           root = move_red_left(root);
         // ensure the invariant: either root->lc or root->lc->lc (or root and
-        // root->lc after dive into the function) is red, to ensure we will
+        // root->lc after diving into the function) is red, to ensure we will
         // eventually delete a red node. therefore we will not break the black
         // height balance
         root->lc = delete_arbitrary(root->lc, key);

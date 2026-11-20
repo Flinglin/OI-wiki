@@ -12,7 +12,7 @@ E(0,0)=1
 $$
 
 $$
-E(n,0)=0
+E(n,0)=0,n>0
 $$
 
 有递推关系：
@@ -23,7 +23,7 @@ $$
 
 ## Seidel–Entringer–Arnold 三角
 
-恩特林格数的一个适当排列的数字三角，称为 Seidel–Entringer–Arnold 三角（Seidel–Entringer–Arnold triangle，[OEIS A008280](http://oeis.org/A008280)）．该三角是按照「牛耕」顺序（ox-plowing order）排列的恩特林格数 $E_(n,k)$：
+恩特林格数的一个适当排列的数字三角，称为 Seidel–Entringer–Arnold 三角（Seidel–Entringer–Arnold triangle，[OEIS A008280](http://oeis.org/A008280)）．该三角是按照「牛耕」顺序（ox-plowing order）排列的恩特林格数 $E(n,k)$：
 
 $$
 \begin{aligned}
@@ -52,7 +52,7 @@ $$
 恩特林格数有一个指数型生成函数：
 
 $$
-\sum_{m=0}^\infty\sum_{n=0}^\infty E\left(m+n,\frac{1}{2}\left(m+n+{(-1)}^{m+n}(n-m)\right)\right)\frac{x^m}{m!}\frac{x^n}{n!}=\frac{\cos x+\sin x}{\cos (x+y)}
+\sum_{m=0}^\infty\sum_{n=0}^\infty E\left(m+n,\frac{1}{2}\left(m+n+{(-1)}^{m+n}(n-m)\right)\right)\frac{x^m}{m!}\frac{y^n}{n!}=\frac{\cos x+\sin x}{\cos (x+y)}
 $$
 
 这个生成函数的系数分布事实上是上面的 Seidel–Entringer–Arnold 三角的简单拉伸变形：
@@ -81,7 +81,7 @@ $$
 
 ## zigzag 置换
 
-一个 zigzag 置换（zigzag permutation）是一个 $1$ 到 $n$ 的排列 $c_1$ 到 $c_i$，使得任意一个元素 $c_i$ 的大小都不介于 $c_{i-1}$ 和 $c_{i+1}$ 之间．
+一个 zigzag 置换（zigzag permutation）是一个 $1$ 到 $n$ 的排列 $c_1$ 到 $c_n$，使得任意一个元素 $c_i$ 的大小都不介于 $c_{i-1}$ 和 $c_{i+1}$ 之间．
 
 对于 zigzag 置换的个数 $Z_n$（[OEIS A001250](http://oeis.org/A001250)），从 $n=0$ 开始有：
 

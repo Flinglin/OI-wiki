@@ -113,7 +113,7 @@ $$
 对 $\binom{m+1}{j}\binom{j}{k}$ 进行恒等变换：
 
 $$
-\binom{m+1}{j}\binom{j}{k}＝\binom{m+1}{k}\binom{m-k+1}{j-k}
+\binom{m+1}{j}\binom{j}{k}=\binom{m+1}{k}\binom{m-k+1}{j-k}
 $$
 
 那么式子就变成了：
@@ -201,8 +201,8 @@ $$
 $$
 \begin{aligned}
 F_n(z) &= B(z)\cdot\dfrac{\mathrm{e}^{nz} - 1}{z}\\
-&= \left(\sum_{i\ge 0}\dfrac{B_i}{i!} \right)\left(\sum_{i\ge 1}\dfrac{n^i z^{i - 1}}{i!}\right)\\
-&= \left(\sum_{i\ge 0}\dfrac{B_i}{i!} \right)\left(\sum_{i\ge 0}\dfrac{n^{i+1} z^{i}}{(i+1)!}\right)
+&= \left(\sum_{i\ge 0}\dfrac{B_i}{i!}z^i \right)\left(\sum_{i\ge 1}\dfrac{n^i z^{i - 1}}{i!}\right)\\
+&= \left(\sum_{i\ge 0}\dfrac{B_i}{i!}z^i \right)\left(\sum_{i\ge 0}\dfrac{n^{i+1} z^{i}}{(i+1)!}\right)
 \end{aligned}
 $$
 
@@ -210,8 +210,8 @@ $$
 
 $$
 \begin{aligned}
-S \times m(n)&=m![z^m]F_n(z)\\
-             &= m!\sum_{i=0}^{m}\dfrac{B \times i}{i!}\cdot\dfrac{n^{m-i+1}}{(m-i+1)!}\\
+S_m(n)&=m![z^m]F_n(z)\\
+             &= m!\sum_{i=0}^{m}\dfrac{B_i}{i!}\cdot\dfrac{n^{m-i+1}}{(m-i+1)!}\\
              &=\dfrac{1}{m+1}\sum_{i=0}^{m}\binom{m+1}{i}B_in^{m-i+1}
 \end{aligned}
 $$
